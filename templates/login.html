@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block body %}
+<!-- TODO: Add client-side validation -->
+    <form action="/login" method="post">
+        <label for="username">{{texts.username_label}}</label>
+        <input autocomplete:"off" autofocus id="username" name="username" type="text" required>
+        <label for="password">{{texts.password_label}}</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">{{texts.login}}</button>
+    </form>
+{% endblock  %}

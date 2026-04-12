@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <main class="section">
+        <!-- TODO: Create city tabs --> 
+        <!-- TODO: If (mobile and data o cities.lentgh > 1) => Tabs --> 
+        <!-- TODO: If (cities.length <= 2) => NO TABS, use columns --> 
+
+        {% if data %}
+            {% for city in data %}
+                <div class="column vertical"> 
+                    <h2 class="desc-title">{{city}}</h2>
+                    
+                    <!-- Forecast Header Information -->
+                    <div class="forecast-header">
+                        <h3>{{texts.temperature}} - {{data[city].forecast_date}}</h3>
+                        <p><strong>{{texts.city}}:</strong> {{data[city].location.value}}</p>
+                        <p><strong>{{texts.date}}:</strong> {{data[city].forecast_date}}</p>
+                        <p><strong>Emisión:</strong> {{data[city].emission_time}}</p>
+                        <p><strong>ID:</strong> {{data[city].id}}</p>
+                    </div>
+
+                    <!-- Daily Forecasts -->
+                    {% if data[city].daily_forecasts %}
+                        <div class="daily-forecasts">
+                            {% for daily in data[city].daily_forecasts %}
+                                <div class="daily-forecast">
+                                    <h4>{{daily.day_name.value}} - {{daily.date}}</h4>
+                                    <div class="temperature-range">
+                                        <p><strong>Temperatura:</strong> {{daily.temp_min}}°C - {{daily.temp_max}}°C</p>
+                                        <p><strong>Sensación Térmica:</strong> {{daily.temp_min_apparent}}°C - {{daily.temp_max_apparent}}°C</p>
+                                    </div>
+                                    
+                                    <!-- Period Forecasts -->
+                                    {% if daily.period_forecasts %}
+                                        <div class="period-forecasts">
+                                            {% for period in daily.period_forecasts %}
+                                                <div class="period-forecast">
+                                                    <h5>{{period.period}}</h5>
+                                                    <ul>
+                                                        <li><strong>Temperatura:</strong> {{period.temperature}}°C</li>
+                                                        <li><strong>Condición del cielo:</strong> {{period.sky_condition}}</li>
+                                                        <li><strong>Descripción:</strong> {{period.precipitation_description}}</li>
+                                                        <li><strong>Dirección del viento:</strong> {{period.wind_direction}}</li>
+                                                        <li><strong>Intensidad del viento:</strong> {{period.wind_intensity}}</li>
+                                                        <li><strong>Icono:</strong> {{period.weather_icon_code}}</li>
+                                                    </ul>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+    </main>
+
+{% endblock %}

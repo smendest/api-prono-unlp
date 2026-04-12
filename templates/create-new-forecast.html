@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="text-align-center">
+    <h2>{{texts.create_new_forecast}}</h2>
+</div>
+<div class="container">
+    <div class="section">
+        <form action="/create-new-forecast" method="post">
+            <h3>Información del Pronóstico</h3>
+
+            <label for="city">{{texts.city}}</label>
+            <select id="city" name="city" required>
+                {% for city in cities %}
+                    <option value="{{city}}">{{city}}</option>
+                {% endfor %}
+            </select>
+
+            <label for="forecast_date">Fecha del pronóstico</label>
+            <input id="forecast_date" autocomplete="off" name="forecast_date" required type="date">
+
+            <label for="emission_time">Hora de emisión</label>
+            <input id="emission_time" autocomplete="off" name="emission_time" required type="time">
+
+            <h3>Información Diaria</h3>
+
+            <label for="day_name">Día de la semana</label>
+            <select id="day_name" name="day_name" required>
+                <option value="lunes">Lunes</option>
+                <option value="martes">Martes</option>
+                <option value="miércoles">Miércoles</option>
+                <option value="jueves">Jueves</option>
+                <option value="viernes">Viernes</option>
+                <option value="sábado">Sábado</option>
+                <option value="domingo">Domingo</option>
+            </select>
+
+            <label for="daily_date">Fecha del día</label>
+            <input id="daily_date" autocomplete="off" name="daily_date" required type="date">
+
+            <label for="temp_min">Temperatura mínima (°C)</label>
+            <input id="temp_min" autocomplete="off" name="temp_min" type="number" step="0.1">
+
+            <label for="temp_max">Temperatura máxima (°C)</label>
+            <input id="temp_max" autocomplete="off" name="temp_max" type="number" step="0.1">
+
+            <label for="temp_min_apparent">Sensación térmica mínima (°C)</label>
+            <input id="temp_min_apparent" autocomplete="off" name="temp_min_apparent" type="number" step="0.1">
+
+            <label for="temp_max_apparent">Sensación térmica máxima (°C)</label>
+            <input id="temp_max_apparent" autocomplete="off" name="temp_max_apparent" type="number" step="0.1">
+
+            <h3>Información por Período</h3>
+
+            <label for="period">Período del día</label>
+            <select id="period" name="period" required>
+                <option value="madrugada">Madrugada</option>
+                <option value="mañana">Mañana</option>
+                <option value="tarde">Tarde</option>
+                <option value="noche">Noche</option>
+            </select>
+
+            <label for="period_temperature">Temperatura del período (°C)</label>
+            <input id="period_temperature" autocomplete="off" name="period_temperature" type="number" step="0.1">
+
+            <label for="sky_condition">Condición del cielo</label>
+            <select id="sky_condition" name="sky_condition">
+                <option value="">-- Seleccionar --</option>
+                <option value="despejado">Despejado</option>
+                <option value="parcialmente nublado">Parcialmente nublado</option>
+                <option value="algo nublado">Algo nublado</option>
+                <option value="nublado">Nublado</option>
+                <option value="muy nublado">Muy nublado</option>
+            </select>
+
+            <label for="precipitation_description">Descripción de precipitaciones</label>
+            <input id="precipitation_description" autocomplete="off" name="precipitation_description" type="text" placeholder="Ej: Baja prob. de tormentas aisladas">
+
+            <label for="wind_direction">Dirección del viento</label>
+            <select id="wind_direction" name="wind_direction">
+                <option value="">-- Seleccionar --</option>
+                <option value="norte">Norte</option>
+                <option value="sur">Sur</option>
+                <option value="este">Este</option>
+                <option value="oeste">Oeste</option>
+                <option value="noreste">Noreste</option>
+                <option value="noroeste">Noroeste</option>
+                <option value="sudeste">Sudeste</option>
+                <option value="sudoeste">Sudoeste</option>
+            </select>
+
+            <label for="wind_intensity">Intensidad del viento</label>
+            <select id="wind_intensity" name="wind_intensity">
+                <option value="">-- Seleccionar --</option>
+                <option value="calmo">Calmo</option>
+                <option value="leves">Leves</option>
+                <option value="moderado">Moderado</option>
+                <option value="fuerte">Fuerte</option>
+                <option value="muy fuerte">Muy fuerte</option>
+            </select>
+
+            <button type="submit">Crear Pronóstico</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <!-- <link href="/static/reset.css" rel="stylesheet"> -->
+    <link href="/static/styles.css" rel="stylesheet">
+    {% if texts %}
+    <title>{{texts.main_title}}</title>
+    {% else %}
+    <title>Pronóstico Meteorológico</title>
+    {% endif %}
+</head>
+
+<body>
+    <header class="header">
+        <div class="title-container horizontal">
+            <img id="logo" src="static/assets/logo.png">
+            {% if texts %}
+            <h1>{{texts.main_title}}</h1>
+            {% endif %}
+            {% block header%}{% endblock %}
+        </div>
+    </header>
+    {% block body %}{% endblock %}
+    <footer>
+        <!-- TODO: -->
+    </footer>
+    <script type="module" src="static/script.js"></script>
+</body>
+
+</html>

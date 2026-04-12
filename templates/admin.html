@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="text-align-center horizontal">
+    <h2>{{texts.admin_panel}}</h2>
+    <form action="/logout" method="POST" style="display: inline;">
+        <button type="submit" class="btn-link">{{texts.logout}}</button>
+    </form>
+</div>
+
+<div class="text-align-center">
+    <button type="button" onclick="window.location.href='/create-new-forecast'">
+        {{texts.create_new_forecast}}
+    </button>
+</div>
+
+
+<div class="container">
+    <div class="section">
+        <!-- TODO: Add filters to the table -->
+        <h3>{{texts.forecasts_title}}</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>{{texts.city}}</th>
+                    <th>{{texts.date}}</th>
+                    <th>{{texts.day_name}}</th>
+                    <th>{{texts.period.}}</th>
+                    <th>{{texts.temperature}}</th>
+                    <th>{{texts.sky_condition}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if data %}
+                    {% for row in data %}
+                        <tr>
+                            <td>{{row.location.value}}</td>
+                            <td>{{row.forecast_date}}</td>
+                            <td>{{row.day_name.value}}</td>
+                            <td>{{row.period.value}}</td>
+                            <td>{{row.temperature}}</td>
+                            <td>{{row.sky_condition.value}}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
