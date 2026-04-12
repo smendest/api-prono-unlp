@@ -35,7 +35,24 @@ def get_all_forecasts():
         .outerjoin(PeriodForecast, DailyForecast.id == PeriodForecast.daily_forecast_id)
         .order_by(DailyForecast.date, PeriodForecast.id)
     )
-    return db.session.execute(query).mappings().all()
+    
+    results = db.session.execute(query).mappings().all()
+    
+    # Transform rows into JSON-serializable dictionaries
+    serialized_results = []
+    for row in results:
+        serialized_results.append({
+            "forecast_id": row["forecast_id"],
+            "location": row["location"].value if row["location"] else None,
+            "forecast_date": row["forecast_date"].isoformat() if row["forecast_date"] else None,
+            "day_name": row["day_name"].value if row["day_name"] else None,
+            "date": row["date"].isoformat() if row["date"] else None,
+            "period": row["period"].value if row["period"] else None,
+            "temperature": row["temperature"],
+            "sky_condition": row["sky_condition"].value if row["sky_condition"] else None,
+        })
+    
+    return serialized_results
 
 
 def insert_record(record):
