@@ -2,20 +2,21 @@
 
 Asegúrate de que el servidor Flask esté corriendo.
 
-## Obtener pronósticos más recientes
-
-```bash
-curl -s http://localhost:5000/ | python3 -m json.tool
-```
-
 ## Ejemplos curl
 
-- Crear un nuevo pronóstico (`POST`)
+- Obtener el pronóstico más reciente (`GET /api/v1/forecasts/latest`)
+  Este endpoint devuelve el pronóstico más reciente registrado para cada una de las ciudades configuradas (La Plata, Mar del Plata, Junín).
+
+```bash
+curl -s http://localhost:5000/api/v1/forecasts/latest | python3 -m json.tool
+```
+
+- Crear un nuevo pronóstico (`POST /api/v1/forecasts`)
   Este comando crea un registro completo: una emisión de pronóstico para una ciudad, su día
   correspondiente y el periodo (ej. mañana).
 
 ```sh
- curl -X POST <http://localhost:5000/create-new-forecast> \
+ curl -X POST <http://localhost:5000/api/v1/forecasts> \
       -H "Content-Type: application/json" \
       -d '{
         "city": "La Plata",
@@ -33,22 +34,16 @@ curl -s http://localhost:5000/ | python3 -m json.tool
       }'
 ```
 
-- Pedir los últimos pronósticos por ciudad (`GET /`)
-  Este endpoint devuelve el pronóstico más reciente registrado para cada una de las ciudades
-  configuradas (La Plata, Mar del Plata, Junín).
-
 ```sh
-curl -X GET <http://localhost:5000/>
+curl GET <http://localhost:5000/api/v1/forecasts>
 # o
 curl http://localhost:5000/
 ```
 
-- Pedir todos los pronósticos (`GET /admin`)
+- Pedir todos los pronósticos (`GET /api/v1/forecasts`)
   Este comando te traerá la lista completa de todos los registros que existan en la base de datos
   (mapeados de forma plana).
 
 ```sh
-curl -X GET <http://localhost:5000/admin>
-# o
-curl http://localhost:5000/admin
+curl GET <http://localhost:5000/api/v1/forecasts>
 ```

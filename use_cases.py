@@ -19,40 +19,48 @@ def authenticate_user(username, password):
 
 
 def get_all_forecasts():
-    """Each row is a dict-like object. Example: row["forecast_id"], row["location"], row["temperature"]"""
-    query = (
-        select(
-            Forecast.id.label("forecast_id"),
-            Forecast.location,
-            Forecast.forecast_date,
-            DailyForecast.day_name,
-            DailyForecast.date,
-            PeriodForecast.period,
-            PeriodForecast.temperature,
-            PeriodForecast.sky_condition,
-        )
-        .outerjoin(DailyForecast, Forecast.id == DailyForecast.forecast_id)
-        .outerjoin(PeriodForecast, DailyForecast.id == PeriodForecast.daily_forecast_id)
-        .order_by(DailyForecast.date, PeriodForecast.id)
-    )
+    """Return all forecasts with complete data including daily and period forecasts"""
+    response = {}
     
-    results = db.session.execute(query).mappings().all()
+    try:
+        # Get all forecasts
+        forecasts_query = select(Forecast).order_by(Forecast.forecast_date.desc())
+        forecasts = db.session.execute(forecasts_query).scalars().all()
+        
+        for forecast in forecasts:
+            city_name = forecast.location.value
+            forecast_data = forecast.to_dict()
+            
+            # Get daily forecasts for this forecast
+            daily_query = select(DailyForecast).where(DailyForecast.forecast_id == forecast.id)
+            daily_forecasts = db.session.execute(daily_query).scalars().all()
+            
+            daily_forecasts_data = []
+            for daily in daily_forecasts:
+                daily_data = daily.to_dict()
+                
+                # Get period forecasts for this daily forecast
+                period_query = select(PeriodForecast).where(PeriodForecast.daily_forecast_id == daily.id)
+                period_forecasts = db.session.execute(period_query).scalars().all()
+                
+                daily_data['period_forecasts'] = [period.to_dict() for period in period_forecasts]
+                daily_forecasts_data.append(daily_data)
+            
+            forecast_data['daily_forecasts'] = daily_forecasts_data
+            
+            # Group by city
+            if city_name not in response:
+                response[city_name] = []
+            response[city_name].append(forecast_data)
+            
+    except SQLAlchemyError as e:
+        print(f"Database error: {e}")
+        return {}
+    except ValueError as e:
+        print(f"City enum conversion error: {e}")
+        return {}
     
-    # Transform rows into JSON-serializable dictionaries
-    serialized_results = []
-    for row in results:
-        serialized_results.append({
-            "forecast_id": row["forecast_id"],
-            "location": row["location"].value if row["location"] else None,
-            "forecast_date": row["forecast_date"].isoformat() if row["forecast_date"] else None,
-            "day_name": row["day_name"].value if row["day_name"] else None,
-            "date": row["date"].isoformat() if row["date"] else None,
-            "period": row["period"].value if row["period"] else None,
-            "temperature": row["temperature"],
-            "sky_condition": row["sky_condition"].value if row["sky_condition"] else None,
-        })
-    
-    return serialized_results
+    return response
 
 
 def insert_record(record):

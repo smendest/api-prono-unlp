@@ -188,6 +188,163 @@ def seed_sample_forecast():
         return forecast
 
 
+def seed_mar_del_plata_forecasts():
+    """
+    Creates two sample forecasts for Mar del Plata
+    """
+    with app.app_context():
+        # Check if data already exists
+        existing_1 = Forecast.query.filter_by(
+            forecast_date=date(2026, 4, 13), location=City.MAR_DEL_PLATA
+        ).first()
+        
+        existing_2 = Forecast.query.filter_by(
+            forecast_date=date(2026, 4, 14), location=City.MAR_DEL_PLATA
+        ).first()
+
+        if existing_1 or existing_2:
+            print("Mar del Plata forecasts already exist. Skipping...")
+            return existing_1 or existing_2
+
+        # First forecast - April 13, 2026
+        forecast_1 = Forecast(
+            forecast_date=date(2026, 4, 13),
+            emission_time=time(8, 0),
+            location=City.MAR_DEL_PLATA,
+        )
+        db.session.add(forecast_1)
+        db.session.flush()
+
+        # Sunday daily forecast for first forecast
+        sunday = DailyForecast(
+            forecast_id=forecast_1.id,
+            day_name=Day.SUNDAY,
+            date=date(2026, 4, 13),
+            temp_min=16.0,
+            temp_max=22.0,
+            temp_min_apparent=15.0,
+            temp_max_apparent=23.0,
+        )
+        db.session.add(sunday)
+        db.session.flush()
+
+        # Period forecasts for Sunday
+        sun_morning = PeriodForecast(
+            daily_forecast_id=sunday.id,
+            period=TimePeriod.MORNING,
+            temperature=18.0,
+            sky_condition=SkyCondition.CLEAR,
+            precipitation_description="Despejado",
+            wind_direction=WindDirection.SOUTHWEST,
+            wind_intensity=WindIntensity.MODERATE,
+            weather_icon_code="sun",
+        )
+
+        sun_afternoon = PeriodForecast(
+            daily_forecast_id=sunday.id,
+            period=TimePeriod.AFTERNOON,
+            temperature=22.0,
+            sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
+            precipitation_description="Algo nublado",
+            wind_direction=WindDirection.SOUTHWEST,
+            wind_intensity=WindIntensity.MODERATE,
+            weather_icon_code="sun_clouds",
+        )
+
+        sun_night = PeriodForecast(
+            daily_forecast_id=sunday.id,
+            period=TimePeriod.NIGHT,
+            temperature=17.0,
+            sky_condition=SkyCondition.PARTLY_CLOUDY,
+            precipitation_description="Parcialmente nublado",
+            wind_direction=WindDirection.SOUTH,
+            wind_intensity=WindIntensity.LIGHT,
+            weather_icon_code="moon_clouds",
+        )
+
+        db.session.add_all([sun_morning, sun_afternoon, sun_night])
+
+        # Second forecast - April 14, 2026
+        forecast_2 = Forecast(
+            forecast_date=date(2026, 4, 14),
+            emission_time=time(8, 30),
+            location=City.MAR_DEL_PLATA,
+        )
+        db.session.add(forecast_2)
+        db.session.flush()
+
+        # Monday daily forecast for second forecast
+        monday = DailyForecast(
+            forecast_id=forecast_2.id,
+            day_name=Day.MONDAY,
+            date=date(2026, 4, 14),
+            temp_min=14.0,
+            temp_max=20.0,
+            temp_min_apparent=13.0,
+            temp_max_apparent=21.0,
+        )
+        db.session.add(monday)
+        db.session.flush()
+
+        # Period forecasts for Monday
+        mon_early = PeriodForecast(
+            daily_forecast_id=monday.id,
+            period=TimePeriod.EARLY_MORNING,
+            temperature=15.0,
+            sky_condition=SkyCondition.CLOUDY,
+            precipitation_description="Nublado",
+            wind_direction=WindDirection.SOUTHEAST,
+            wind_intensity=WindIntensity.MODERATE,
+            weather_icon_code="moon_clouds",
+        )
+
+        mon_morning = PeriodForecast(
+            daily_forecast_id=monday.id,
+            period=TimePeriod.MORNING,
+            temperature=17.0,
+            sky_condition=SkyCondition.OVERCAST,
+            precipitation_description="Muy nublado",
+            wind_direction=WindDirection.SOUTHEAST,
+            wind_intensity=WindIntensity.MODERATE,
+            weather_icon_code="clouds",
+        )
+
+        mon_afternoon = PeriodForecast(
+            daily_forecast_id=monday.id,
+            period=TimePeriod.AFTERNOON,
+            temperature=20.0,
+            sky_condition=SkyCondition.CLOUDY,
+            precipitation_description="Lluvias dispersas",
+            wind_direction=WindDirection.EAST,
+            wind_intensity=WindIntensity.MODERATE,
+            weather_icon_code="rain",
+        )
+
+        mon_night = PeriodForecast(
+            daily_forecast_id=monday.id,
+            period=TimePeriod.NIGHT,
+            temperature=16.0,
+            sky_condition=SkyCondition.CLOUDY,
+            precipitation_description="Nublado",
+            wind_direction=WindDirection.NORTHEAST,
+            wind_intensity=WindIntensity.LIGHT,
+            weather_icon_code="moon_clouds",
+        )
+
+        db.session.add_all([mon_early, mon_morning, mon_afternoon, mon_night])
+
+        # Commit all changes
+        db.session.commit()
+
+        print("✓ Mar del Plata forecasts created successfully!")
+        print(f"  Forecast 1 ID: {forecast_1.id}")
+        print(f"  Forecast 2 ID: {forecast_2.id}")
+        print(f"  Location: {forecast_1.location.value}")
+        print(f"  Dates: {forecast_1.forecast_date} and {forecast_2.forecast_date}")
+
+        return [forecast_1, forecast_2]
+
+
 def verify_forecast(forecast_id):
     """
     Verify that a forecast and all its related data exists
@@ -294,9 +451,16 @@ if __name__ == "__main__":
             else:
                 print("Usage: python scripts/seed_data.py verify <forecast_id>")
 
+        elif command == "mdp":
+            seed_mar_del_plata_forecasts()
+
+        elif command == "all":
+            seed_sample_forecast()
+            seed_mar_del_plata_forecasts()
+
         else:
             print(f"Unknown command: {command}")
-            print("Available commands: [default], clear, list, verify")
+            print("Available commands: [default], clear, list, verify, mdp, all")
 
     else:
         # Default: seed sample data
