@@ -1,4 +1,4 @@
-from flask import redirect, render_template, request, url_for, session, jsonify
+from flask import redirect, render_template, request, url_for, jsonify
 from use_cases import (
     authenticate_user,
     get_all_forecasts,
@@ -43,7 +43,6 @@ def register_routes(app):
                 password = request.form.get("password")
             
             if authenticate_user(username, password):
-                session["username"] = username
                 return jsonify({
                     "message": "Login successful",
                     "user": username,
@@ -63,7 +62,6 @@ def register_routes(app):
 
     @app.route("/logout", methods=["POST"])
     def logout():
-        session.clear()
         return jsonify({
             "message": "Logged out successfully",
             "status": "success"
