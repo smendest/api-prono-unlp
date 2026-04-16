@@ -5,14 +5,14 @@
             "daily_forecasts": [
                 {
                     "date": "2026-02-04",
-                    "day_name": "mi\u00e9rcoles",
+                    "day_name": "miércoles",
                     "forecast_id": 1,
                     "id": 1,
                     "period_forecasts": [
                         {
                             "daily_forecast_id": 1,
                             "id": 1,
-                            "period": "ma\u00f1ana",
+                            "period": "mañana",
                             "precipitation_description": "Algo nublado",
                             "sky_condition": "algo nublado",
                             "temperature": 20.0,
@@ -68,7 +68,7 @@
                         {
                             "daily_forecast_id": 2,
                             "id": 5,
-                            "period": "ma\u00f1ana",
+                            "period": "mañana",
                             "precipitation_description": "Prob. de lluvias y tormentas",
                             "sky_condition": "nublado",
                             "temperature": 24.0,
