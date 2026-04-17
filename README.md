@@ -1,4 +1,4 @@
-# prono-unlp
+# Pronóstico del tiempo, Facultad de Ciencias Astronómicas y Geofísicas - UNLP
 
 API for the Pronostico UNLP website.
 
@@ -49,3 +49,19 @@ flask run
 
 *Deactivate venv* when finish.
 You can deactivate a virtual environment by typing `deactivate` in your shell.
+
+## Testing db scripts
+
+```bash
+# Activate virtual environment
+. .venv/bin/activate
+
+# Clean existing data (optional)
+python3 scripts/seed_data.py clear
+
+# Create all data with the new structure
+python3 scripts/seed_data.py all
+
+# Verify the created data
+python3 scripts/seed_data.py list
+```

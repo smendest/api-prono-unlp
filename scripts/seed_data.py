@@ -38,8 +38,10 @@ from models import (
 
 def seed_sample_forecast():
     """
-    Creates sample forecast data matching the La Plata image
+    Creates sample forecast data for La Plata with exactly 4 consecutive daily forecasts
     Date: 04/FEB/26, Time: 07:45
+    Day 1 & 2: Complete with 4 periods
+    Day 3 & 4: Only day and night periods
     """
     with app.app_context():
         # Check if data already exists
@@ -60,126 +62,231 @@ def seed_sample_forecast():
         db.session.add(forecast)
         db.session.flush()
 
-        # 2. Create MIÉRCOLES (Wednesday) daily forecast
-        wednesday = DailyForecast(
+        # 2. Create MIÉRCOLES (Wednesday) - Day 1 - Complete with 4 periods
+        # Check if daily forecast already exists
+        existing_wed = DailyForecast.query.filter_by(
             forecast_id=forecast.id,
-            day_name=Day.WEDNESDAY,
-            date=date(2026, 2, 4),
-            temp_min=19.0,
-            temp_max=30.0,
-            temp_min_apparent=20.0,
-            temp_max_apparent=31.0,
-        )
-        db.session.add(wednesday)
-        db.session.flush()
+            date=date(2026, 2, 4)
+        ).first()
+        
+        if not existing_wed:
+            wednesday = DailyForecast(
+                forecast_id=forecast.id,
+                day_name=Day.WEDNESDAY,
+                date=date(2026, 2, 4),
+                temp_min=19.0,
+                temp_max=30.0,
+                temp_min_apparent=20.0,
+                temp_max_apparent=31.0,
+            )
+            db.session.add(wednesday)
+            db.session.flush()
+            
+            # Complete periods for Wednesday
+            wed_periods = [
+                PeriodForecast(
+                    daily_forecast_id=wednesday.id,
+                    period=TimePeriod.EARLY_MORNING,
+                    temperature=18.0,
+                    sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
+                    precipitation_description="Algo nublado",
+                    wind_direction=WindDirection.SOUTHEAST,
+                    wind_intensity=WindIntensity.LIGHT,
+                    weather_icon_code="moon_stars",
+                ),
+                PeriodForecast(
+                    daily_forecast_id=wednesday.id,
+                    period=TimePeriod.MORNING,
+                    temperature=20.0,
+                    sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
+                    precipitation_description="Algo nublado",
+                    wind_direction=WindDirection.SOUTHEAST,
+                    wind_intensity=WindIntensity.LIGHT,
+                    weather_icon_code="sun_clouds",
+                ),
+                PeriodForecast(
+                    daily_forecast_id=wednesday.id,
+                    period=TimePeriod.AFTERNOON,
+                    temperature=31.0,
+                    sky_condition=SkyCondition.CLOUDY,
+                    precipitation_description="Baja prob. de tormentas aisladas",
+                    wind_direction=WindDirection.SOUTHEAST,
+                    wind_intensity=WindIntensity.LIGHT,
+                    weather_icon_code="storm",
+                ),
+                PeriodForecast(
+                    daily_forecast_id=wednesday.id,
+                    period=TimePeriod.NIGHT,
+                    temperature=25.0,
+                    sky_condition=SkyCondition.PARTLY_CLOUDY,
+                    precipitation_description="Parcialmente nublado",
+                    wind_direction=WindDirection.WEST,
+                    wind_intensity=WindIntensity.LIGHT,
+                    weather_icon_code="moon_clouds",
+                ),
+            ]
+            db.session.add_all(wed_periods)
 
-        # 3. Create period forecasts for Wednesday
-        # Morning (MAÑANA)
-        wed_morning = PeriodForecast(
-            daily_forecast_id=wednesday.id,
-            period=TimePeriod.MORNING,
-            temperature=20.0,
-            sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
-            precipitation_description="Algo nublado",
-            wind_direction=WindDirection.SOUTHEAST,
-            wind_intensity=WindIntensity.LIGHT,
-            weather_icon_code="sun_clouds",
-        )
-
-        # Afternoon (TARDE)
-        wed_afternoon = PeriodForecast(
-            daily_forecast_id=wednesday.id,
-            period=TimePeriod.AFTERNOON,
-            temperature=31.0,
-            sky_condition=SkyCondition.CLOUDY,
-            precipitation_description="Baja prob. de tormentas aisladas",
-            wind_direction=WindDirection.SOUTHEAST,
-            wind_intensity=WindIntensity.LIGHT,
-            weather_icon_code="storm",
-        )
-
-        # Night (NOCHE)
-        wed_night = PeriodForecast(
-            daily_forecast_id=wednesday.id,
-            period=TimePeriod.NIGHT,
-            temperature=25.0,
-            sky_condition=SkyCondition.PARTLY_CLOUDY,
-            precipitation_description="Parcialmente nublado",
-            wind_direction=WindDirection.WEST,
-            wind_intensity=WindIntensity.LIGHT,
-            weather_icon_code="moon_clouds",
-        )
-
-        db.session.add_all([wed_morning, wed_afternoon, wed_night])
-
-        # 4. Create JUEVES (Thursday) daily forecast
-        thursday = DailyForecast(
+        
+        # 3. Create JUEVES (Thursday) - Day 2 - Complete with 4 periods
+        # Check if daily forecast already exists
+        existing_thu = DailyForecast.query.filter_by(
             forecast_id=forecast.id,
-            day_name=Day.THURSDAY,
-            date=date(2026, 2, 5),
-            temp_min=23.0,
-            temp_max=29.0,
-            temp_min_apparent=24.0,
-            temp_max_apparent=30.0,
-        )
-        db.session.add(thursday)
-        db.session.flush()
+            date=date(2026, 2, 5)
+        ).first()
+        
+        if not existing_thu:
+            thursday = DailyForecast(
+                forecast_id=forecast.id,
+                day_name=Day.THURSDAY,
+                date=date(2026, 2, 5),
+                temp_min=23.0,
+                temp_max=29.0,
+                temp_min_apparent=24.0,
+                temp_max_apparent=30.0,
+            )
+            db.session.add(thursday)
+            db.session.flush()
 
-        # 5. Create period forecasts for Thursday
-        # Early morning (MADRUGADA)
-        thu_early = PeriodForecast(
-            daily_forecast_id=thursday.id,
-            period=TimePeriod.EARLY_MORNING,
-            temperature=25.0,
-            sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
-            precipitation_description="Algo nublado",
-            wind_direction=WindDirection.EAST,
-            wind_intensity=WindIntensity.LIGHT,
-            weather_icon_code="moon_stars",
-        )
+            # Complete periods for Thursday
+            thu_periods = [
+                PeriodForecast(
+                    daily_forecast_id=thursday.id,
+                    period=TimePeriod.EARLY_MORNING,
+                    temperature=25.0,
+                    sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
+                    precipitation_description="Algo nublado",
+                    wind_direction=WindDirection.EAST,
+                    wind_intensity=WindIntensity.LIGHT,
+                    weather_icon_code="moon_stars",
+                ),
+                PeriodForecast(
+                    daily_forecast_id=thursday.id,
+                    period=TimePeriod.MORNING,
+                    temperature=24.0,
+                    sky_condition=SkyCondition.CLOUDY,
+                    precipitation_description="Prob. de lluvias y tormentas",
+                    wind_direction=WindDirection.EAST,
+                    wind_intensity=WindIntensity.LIGHT,
+                    weather_icon_code="rain_storm",
+                ),
+                PeriodForecast(
+                    daily_forecast_id=thursday.id,
+                    period=TimePeriod.AFTERNOON,
+                    temperature=30.0,
+                    sky_condition=SkyCondition.CLOUDY,
+                    precipitation_description="Prob. de lluvias y tormentas",
+                    wind_direction=WindDirection.WEST,
+                    wind_intensity=WindIntensity.LIGHT,
+                    weather_icon_code="rain_storm",
+                ),
+                PeriodForecast(
+                    daily_forecast_id=thursday.id,
+                    period=TimePeriod.NIGHT,
+                    temperature=25.0,
+                    sky_condition=SkyCondition.CLOUDY,
+                    precipitation_description="Prob. de lluvias y tormentas",
+                    wind_direction=WindDirection.SOUTH,
+                    wind_intensity=WindIntensity.LIGHT,
+                    weather_icon_code="rain_storm_night",
+                ),
+            ]
+            db.session.add_all(thu_periods)
 
-        # Morning (MAÑANA)
-        thu_morning = PeriodForecast(
-            daily_forecast_id=thursday.id,
-            period=TimePeriod.MORNING,
-            temperature=24.0,
-            sky_condition=SkyCondition.CLOUDY,
-            precipitation_description="Prob. de lluvias y tormentas",
-            wind_direction=WindDirection.EAST,
-            wind_intensity=WindIntensity.LIGHT,
-            weather_icon_code="rain_storm",
-        )
+        # 4. Create VIERNES (Friday) - Day 3 - Only day and night periods
+        # Check if daily forecast already exists
+        existing_fri = DailyForecast.query.filter_by(
+            forecast_id=forecast.id,
+            date=date(2026, 2, 6)
+        ).first()
+        
+        if not existing_fri:
+            friday = DailyForecast(
+                forecast_id=forecast.id,
+                day_name=Day.FRIDAY,
+                date=date(2026, 2, 6),
+                temp_min=20.0,
+                temp_max=28.0,
+                temp_min_apparent=19.0,
+                temp_max_apparent=29.0,
+            )
+            db.session.add(friday)
+            db.session.flush()
 
-        # Afternoon (TARDE)
-        thu_afternoon = PeriodForecast(
-            daily_forecast_id=thursday.id,
-            period=TimePeriod.AFTERNOON,
-            temperature=30.0,
-            sky_condition=SkyCondition.CLOUDY,
-            precipitation_description="Prob. de lluvias y tormentas",
-            wind_direction=WindDirection.WEST,
-            wind_intensity=WindIntensity.LIGHT,
-            weather_icon_code="rain_storm",
-        )
+            # Only day and night periods for Friday
+            fri_periods = [
+                PeriodForecast(
+                    daily_forecast_id=friday.id,
+                    period=TimePeriod.MORNING,
+                    temperature=22.0,
+                    sky_condition=SkyCondition.PARTLY_CLOUDY,
+                    precipitation_description="Parcialmente nublado",
+                    wind_direction=WindDirection.NORTH,
+                    wind_intensity=WindIntensity.MODERATE,
+                    weather_icon_code="sun_clouds",
+                ),
+                PeriodForecast(
+                    daily_forecast_id=friday.id,
+                    period=TimePeriod.NIGHT,
+                    temperature=21.0,
+                    sky_condition=SkyCondition.CLEAR,
+                    precipitation_description="Despejado",
+                    wind_direction=WindDirection.NORTHWEST,
+                    wind_intensity=WindIntensity.LIGHT,
+                    weather_icon_code="moon_clear",
+                ),
+            ]
+            db.session.add_all(fri_periods)
 
-        # Night (NOCHE)
-        thu_night = PeriodForecast(
-            daily_forecast_id=thursday.id,
-            period=TimePeriod.NIGHT,
-            temperature=25.0,
-            sky_condition=SkyCondition.CLOUDY,
-            precipitation_description="Prob. de lluvias y tormentas",
-            wind_direction=WindDirection.SOUTH,
-            wind_intensity=WindIntensity.LIGHT,
-            weather_icon_code="rain_storm_night",
-        )
+        # 5. Create SÁBADO (Saturday) - Day 4 - Only day and night periods
+        # Check if daily forecast already exists
+        existing_sat = DailyForecast.query.filter_by(
+            forecast_id=forecast.id,
+            date=date(2026, 2, 7)
+        ).first()
+        
+        if not existing_sat:
+            saturday = DailyForecast(
+                forecast_id=forecast.id,
+                day_name=Day.SATURDAY,
+                date=date(2026, 2, 7),
+                temp_min=18.0,
+                temp_max=26.0,
+                temp_min_apparent=17.0,
+                temp_max_apparent=27.0,
+            )
+            db.session.add(saturday)
+            db.session.flush()
 
-        db.session.add_all([thu_early, thu_morning, thu_afternoon, thu_night])
+            # Only day and night periods for Saturday
+            sat_periods = [
+                PeriodForecast(
+                    daily_forecast_id=saturday.id,
+                    period=TimePeriod.MORNING,
+                    temperature=20.0,
+                    sky_condition=SkyCondition.CLEAR,
+                    precipitation_description="Despejado",
+                    wind_direction=WindDirection.NORTHEAST,
+                    wind_intensity=WindIntensity.LIGHT,
+                    weather_icon_code="sun",
+                ),
+                PeriodForecast(
+                    daily_forecast_id=saturday.id,
+                    period=TimePeriod.NIGHT,
+                    temperature=19.0,
+                    sky_condition=SkyCondition.PARTLY_CLOUDY,
+                    precipitation_description="Parcialmente nublado",
+                    wind_direction=WindDirection.EAST,
+                    wind_intensity=WindIntensity.LIGHT,
+                    weather_icon_code="moon_clouds",
+                ),
+            ]
+            db.session.add_all(sat_periods)
 
         # Commit all changes
         db.session.commit()
 
-        print("✓ Sample forecast created successfully!")
+        print("× Sample forecast created successfully!")
         print(f"  Forecast ID: {forecast.id}")
         print(f"  Location: {forecast.location.value}")
         print(f"  Date: {forecast.forecast_date}")
@@ -190,21 +297,20 @@ def seed_sample_forecast():
 
 def seed_mar_del_plata_forecasts():
     """
-    Creates two sample forecasts for Mar del Plata
+    Creates two sample forecasts for Mar del Plata with exactly 4 consecutive daily forecasts each
+    Day 1 & 2: Complete with 4 periods
+    Day 3 & 4: Only day and night periods
     """
     with app.app_context():
         # Check if data already exists
-        existing_1 = Forecast.query.filter_by(
+        existing = Forecast.query.filter_by(
             forecast_date=date(2026, 4, 13), location=City.MAR_DEL_PLATA
         ).first()
         
-        existing_2 = Forecast.query.filter_by(
-            forecast_date=date(2026, 4, 14), location=City.MAR_DEL_PLATA
-        ).first()
 
-        if existing_1 or existing_2:
+        if existing:
             print("Mar del Plata forecasts already exist. Skipping...")
-            return existing_1 or existing_2
+            return existing
 
         # First forecast - April 13, 2026
         forecast_1 = Forecast(
@@ -215,7 +321,7 @@ def seed_mar_del_plata_forecasts():
         db.session.add(forecast_1)
         db.session.flush()
 
-        # Sunday daily forecast for first forecast
+        # Day 1 - Sunday - Complete with 4 periods
         sunday = DailyForecast(
             forecast_id=forecast_1.id,
             day_name=Day.SUNDAY,
@@ -228,54 +334,54 @@ def seed_mar_del_plata_forecasts():
         db.session.add(sunday)
         db.session.flush()
 
-        # Period forecasts for Sunday
-        sun_morning = PeriodForecast(
-            daily_forecast_id=sunday.id,
-            period=TimePeriod.MORNING,
-            temperature=18.0,
-            sky_condition=SkyCondition.CLEAR,
-            precipitation_description="Despejado",
-            wind_direction=WindDirection.SOUTHWEST,
-            wind_intensity=WindIntensity.MODERATE,
-            weather_icon_code="sun",
-        )
+        # Complete periods for Sunday
+        sun_periods = [
+            PeriodForecast(
+                daily_forecast_id=sunday.id,
+                period=TimePeriod.EARLY_MORNING,
+                temperature=15.0,
+                sky_condition=SkyCondition.CLEAR,
+                precipitation_description="Despejado",
+                wind_direction=WindDirection.SOUTHWEST,
+                wind_intensity=WindIntensity.LIGHT,
+                weather_icon_code="moon_clear",
+            ),
+            PeriodForecast(
+                daily_forecast_id=sunday.id,
+                period=TimePeriod.MORNING,
+                temperature=18.0,
+                sky_condition=SkyCondition.CLEAR,
+                precipitation_description="Despejado",
+                wind_direction=WindDirection.SOUTHWEST,
+                wind_intensity=WindIntensity.MODERATE,
+                weather_icon_code="sun",
+            ),
+            PeriodForecast(
+                daily_forecast_id=sunday.id,
+                period=TimePeriod.AFTERNOON,
+                temperature=22.0,
+                sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
+                precipitation_description="Algo nublado",
+                wind_direction=WindDirection.SOUTHWEST,
+                wind_intensity=WindIntensity.MODERATE,
+                weather_icon_code="sun_clouds",
+            ),
+            PeriodForecast(
+                daily_forecast_id=sunday.id,
+                period=TimePeriod.NIGHT,
+                temperature=17.0,
+                sky_condition=SkyCondition.PARTLY_CLOUDY,
+                precipitation_description="Parcialmente nublado",
+                wind_direction=WindDirection.SOUTH,
+                wind_intensity=WindIntensity.LIGHT,
+                weather_icon_code="moon_clouds",
+            ),
+        ]
+        db.session.add_all(sun_periods)
 
-        sun_afternoon = PeriodForecast(
-            daily_forecast_id=sunday.id,
-            period=TimePeriod.AFTERNOON,
-            temperature=22.0,
-            sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
-            precipitation_description="Algo nublado",
-            wind_direction=WindDirection.SOUTHWEST,
-            wind_intensity=WindIntensity.MODERATE,
-            weather_icon_code="sun_clouds",
-        )
-
-        sun_night = PeriodForecast(
-            daily_forecast_id=sunday.id,
-            period=TimePeriod.NIGHT,
-            temperature=17.0,
-            sky_condition=SkyCondition.PARTLY_CLOUDY,
-            precipitation_description="Parcialmente nublado",
-            wind_direction=WindDirection.SOUTH,
-            wind_intensity=WindIntensity.LIGHT,
-            weather_icon_code="moon_clouds",
-        )
-
-        db.session.add_all([sun_morning, sun_afternoon, sun_night])
-
-        # Second forecast - April 14, 2026
-        forecast_2 = Forecast(
-            forecast_date=date(2026, 4, 14),
-            emission_time=time(8, 30),
-            location=City.MAR_DEL_PLATA,
-        )
-        db.session.add(forecast_2)
-        db.session.flush()
-
-        # Monday daily forecast for second forecast
+        # Day 2 - Monday - Complete with 4 periods
         monday = DailyForecast(
-            forecast_id=forecast_2.id,
+            forecast_id=forecast_1.id,
             day_name=Day.MONDAY,
             date=date(2026, 4, 14),
             temp_min=14.0,
@@ -286,63 +392,137 @@ def seed_mar_del_plata_forecasts():
         db.session.add(monday)
         db.session.flush()
 
-        # Period forecasts for Monday
-        mon_early = PeriodForecast(
-            daily_forecast_id=monday.id,
-            period=TimePeriod.EARLY_MORNING,
-            temperature=15.0,
-            sky_condition=SkyCondition.CLOUDY,
-            precipitation_description="Nublado",
-            wind_direction=WindDirection.SOUTHEAST,
-            wind_intensity=WindIntensity.MODERATE,
-            weather_icon_code="moon_clouds",
-        )
+        # Complete periods for Monday
+        mon_periods = [
+            PeriodForecast(
+                daily_forecast_id=monday.id,
+                period=TimePeriod.EARLY_MORNING,
+                temperature=15.0,
+                sky_condition=SkyCondition.CLOUDY,
+                precipitation_description="Nublado",
+                wind_direction=WindDirection.SOUTHEAST,
+                wind_intensity=WindIntensity.MODERATE,
+                weather_icon_code="moon_clouds",
+            ),
+            PeriodForecast(
+                daily_forecast_id=monday.id,
+                period=TimePeriod.MORNING,
+                temperature=17.0,
+                sky_condition=SkyCondition.OVERCAST,
+                precipitation_description="Muy nublado",
+                wind_direction=WindDirection.SOUTHEAST,
+                wind_intensity=WindIntensity.MODERATE,
+                weather_icon_code="clouds",
+            ),
+            PeriodForecast(
+                daily_forecast_id=monday.id,
+                period=TimePeriod.AFTERNOON,
+                temperature=20.0,
+                sky_condition=SkyCondition.CLOUDY,
+                precipitation_description="Lluvias dispersas",
+                wind_direction=WindDirection.EAST,
+                wind_intensity=WindIntensity.MODERATE,
+                weather_icon_code="rain",
+            ),
+            PeriodForecast(
+                daily_forecast_id=monday.id,
+                period=TimePeriod.NIGHT,
+                temperature=16.0,
+                sky_condition=SkyCondition.CLOUDY,
+                precipitation_description="Nublado",
+                wind_direction=WindDirection.NORTHEAST,
+                wind_intensity=WindIntensity.LIGHT,
+                weather_icon_code="moon_clouds",
+            ),
+        ]
+        db.session.add_all(mon_periods)
 
-        mon_morning = PeriodForecast(
-            daily_forecast_id=monday.id,
-            period=TimePeriod.MORNING,
-            temperature=17.0,
-            sky_condition=SkyCondition.OVERCAST,
-            precipitation_description="Muy nublado",
-            wind_direction=WindDirection.SOUTHEAST,
-            wind_intensity=WindIntensity.MODERATE,
-            weather_icon_code="clouds",
+        # Day 3 - Tuesday - Only day and night periods
+        tuesday = DailyForecast(
+            forecast_id=forecast_1.id,
+            day_name=Day.TUESDAY,
+            date=date(2026, 4, 15),
+            temp_min=13.0,
+            temp_max=19.0,
+            temp_min_apparent=12.0,
+            temp_max_apparent=20.0,
         )
+        db.session.add(tuesday)
+        db.session.flush()
 
-        mon_afternoon = PeriodForecast(
-            daily_forecast_id=monday.id,
-            period=TimePeriod.AFTERNOON,
-            temperature=20.0,
-            sky_condition=SkyCondition.CLOUDY,
-            precipitation_description="Lluvias dispersas",
-            wind_direction=WindDirection.EAST,
-            wind_intensity=WindIntensity.MODERATE,
-            weather_icon_code="rain",
+        # Only day and night periods for Tuesday
+        tue_periods = [
+            PeriodForecast(
+                daily_forecast_id=tuesday.id,
+                period=TimePeriod.MORNING,
+                temperature=16.0,
+                sky_condition=SkyCondition.PARTLY_CLOUDY,
+                precipitation_description="Parcialmente nublado",
+                wind_direction=WindDirection.NORTH,
+                wind_intensity=WindIntensity.MODERATE,
+                weather_icon_code="sun_clouds",
+            ),
+            PeriodForecast(
+                daily_forecast_id=tuesday.id,
+                period=TimePeriod.NIGHT,
+                temperature=14.0,
+                sky_condition=SkyCondition.CLEAR,
+                precipitation_description="Despejado",
+                wind_direction=WindDirection.NORTHWEST,
+                wind_intensity=WindIntensity.LIGHT,
+                weather_icon_code="moon_clear",
+            ),
+        ]
+        db.session.add_all(tue_periods)
+
+        # Day 4 - Wednesday - Only day and night periods
+        wednesday = DailyForecast(
+            forecast_id=forecast_1.id,
+            day_name=Day.WEDNESDAY,
+            date=date(2026, 4, 16),
+            temp_min=12.0,
+            temp_max=18.0,
+            temp_min_apparent=11.0,
+            temp_max_apparent=19.0,
         )
+        db.session.add(wednesday)
+        db.session.flush()
 
-        mon_night = PeriodForecast(
-            daily_forecast_id=monday.id,
-            period=TimePeriod.NIGHT,
-            temperature=16.0,
-            sky_condition=SkyCondition.CLOUDY,
-            precipitation_description="Nublado",
-            wind_direction=WindDirection.NORTHEAST,
-            wind_intensity=WindIntensity.LIGHT,
-            weather_icon_code="moon_clouds",
-        )
+        # Only day and night periods for Wednesday
+        wed_periods = [
+            PeriodForecast(
+                daily_forecast_id=wednesday.id,
+                period=TimePeriod.MORNING,
+                temperature=15.0,
+                sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
+                precipitation_description="Algo nublado",
+                wind_direction=WindDirection.NORTHEAST,
+                wind_intensity=WindIntensity.LIGHT,
+                weather_icon_code="sun_clouds",
+            ),
+            PeriodForecast(
+                daily_forecast_id=wednesday.id,
+                period=TimePeriod.NIGHT,
+                temperature=13.0,
+                sky_condition=SkyCondition.PARTLY_CLOUDY,
+                precipitation_description="Parcialmente nublado",
+                wind_direction=WindDirection.EAST,
+                wind_intensity=WindIntensity.LIGHT,
+                weather_icon_code="moon_clouds",
+            ),
+        ]
+        db.session.add_all(wed_periods)
 
-        db.session.add_all([mon_early, mon_morning, mon_afternoon, mon_night])
 
         # Commit all changes
         db.session.commit()
 
-        print("✓ Mar del Plata forecasts created successfully!")
+        print("× Mar del Plata forecasts created successfully!")
         print(f"  Forecast 1 ID: {forecast_1.id}")
-        print(f"  Forecast 2 ID: {forecast_2.id}")
         print(f"  Location: {forecast_1.location.value}")
-        print(f"  Dates: {forecast_1.forecast_date} and {forecast_2.forecast_date}")
+        print(f"  Dates: {forecast_1.forecast_date}")
 
-        return [forecast_1, forecast_2]
+        return [forecast_1]
 
 
 def verify_forecast(forecast_id):
@@ -418,14 +598,24 @@ def list_all_forecasts():
 
 def clear_all_forecasts():
     """
-    WARNING: Deletes all forecast data
+    WARNING: Deletes all forecast data including related daily and period forecasts
     Use with caution!
     """
     with app.app_context():
-        count = Forecast.query.count()
+        # Count before deletion
+        forecast_count = Forecast.query.count()
+        daily_count = DailyForecast.query.count()
+        period_count = PeriodForecast.query.count()
+        
+        # Delete in correct order to respect foreign key constraints
+        PeriodForecast.query.delete()
+        DailyForecast.query.delete()
         Forecast.query.delete()
         db.session.commit()
-        print(f"✓ Deleted {count} forecast(s)")
+        
+        print(f"✓ Deleted {forecast_count} forecast(s)")
+        print(f"✓ Deleted {daily_count} daily forecast(s)")
+        print(f"✓ Deleted {period_count} period forecast(s)")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,180 @@
+{
+    "data": {
+        "La Plata": {
+            "created_at": "2026-04-13T22:32:24.115570",
+            "daily_forecasts": [
+                {
+                    "date": "2026-02-04",
+                    "day_name": "mi\u00e9rcoles",
+                    "forecast_id": 1,
+                    "id": 1,
+                    "period_forecasts": [
+                        {
+                            "daily_forecast_id": 1,
+                            "id": 1,
+                            "period": "ma\u00f1ana",
+                            "precipitation_description": "Algo nublado",
+                            "sky_condition": "algo nublado",
+                            "temperature": 20.0,
+                            "weather_icon_code": "sun_clouds",
+                            "wind_direction": "sudeste",
+                            "wind_intensity": "leves"
+                        },
+                        {
+                            "daily_forecast_id": 1,
+                            "id": 2,
+                            "period": "tarde",
+                            "precipitation_description": "Baja prob. de tormentas aisladas",
+                            "sky_condition": "nublado",
+                            "temperature": 31.0,
+                            "weather_icon_code": "storm",
+                            "wind_direction": "sudeste",
+                            "wind_intensity": "leves"
+                        },
+                        {
+                            "daily_forecast_id": 1,
+                            "id": 3,
+                            "period": "noche",
+                            "precipitation_description": "Parcialmente nublado",
+                            "sky_condition": "parcialmente nublado",
+                            "temperature": 25.0,
+                            "weather_icon_code": "moon_clouds",
+                            "wind_direction": "oeste",
+                            "wind_intensity": "leves"
+                        }
+                    ],
+                    "temp_max": 30.0,
+                    "temp_max_apparent": 31.0,
+                    "temp_min": 19.0,
+                    "temp_min_apparent": 20.0
+                },
+                {
+                    "date": "2026-02-05",
+                    "day_name": "jueves",
+                    "forecast_id": 1,
+                    "id": 2,
+                    "period_forecasts": [
+                        {
+                            "daily_forecast_id": 2,
+                            "id": 4,
+                            "period": "madrugada",
+                            "precipitation_description": "Algo nublado",
+                            "sky_condition": "algo nublado",
+                            "temperature": 25.0,
+                            "weather_icon_code": "moon_stars",
+                            "wind_direction": "este",
+                            "wind_intensity": "leves"
+                        },
+                        {
+                            "daily_forecast_id": 2,
+                            "id": 5,
+                            "period": "ma\u00f1ana",
+                            "precipitation_description": "Prob. de lluvias y tormentas",
+                            "sky_condition": "nublado",
+                            "temperature": 24.0,
+                            "weather_icon_code": "rain_storm",
+                            "wind_direction": "este",
+                            "wind_intensity": "leves"
+                        },
+                        {
+                            "daily_forecast_id": 2,
+                            "id": 6,
+                            "period": "tarde",
+                            "precipitation_description": "Prob. de lluvias y tormentas",
+                            "sky_condition": "nublado",
+                            "temperature": 30.0,
+                            "weather_icon_code": "rain_storm",
+                            "wind_direction": "oeste",
+                            "wind_intensity": "leves"
+                        },
+                        {
+                            "daily_forecast_id": 2,
+                            "id": 7,
+                            "period": "noche",
+                            "precipitation_description": "Prob. de lluvias y tormentas",
+                            "sky_condition": "nublado",
+                            "temperature": 25.0,
+                            "weather_icon_code": "rain_storm_night",
+                            "wind_direction": "sur",
+                            "wind_intensity": "leves"
+                        }
+                    ],
+                    "temp_max": 29.0,
+                    "temp_max_apparent": 30.0,
+                    "temp_min": 23.0,
+                    "temp_min_apparent": 24.0
+                }
+            ],
+            "emission_time": "07:45:00",
+            "forecast_date": "2026-02-04",
+            "id": 1,
+            "location": "La Plata"
+        },
+        "Mar del Plata": {
+            "created_at": "2026-04-13T22:35:57.979033",
+            "daily_forecasts": [
+                {
+                    "date": "2026-04-14",
+                    "day_name": "lunes",
+                    "forecast_id": 3,
+                    "id": 4,
+                    "period_forecasts": [
+                        {
+                            "daily_forecast_id": 4,
+                            "id": 11,
+                            "period": "madrugada",
+                            "precipitation_description": "Nublado",
+                            "sky_condition": "nublado",
+                            "temperature": 15.0,
+                            "weather_icon_code": "moon_clouds",
+                            "wind_direction": "sudeste",
+                            "wind_intensity": "moderado"
+                        },
+                        {
+                            "daily_forecast_id": 4,
+                            "id": 12,
+                            "period": "ma\u00f1ana",
+                            "precipitation_description": "Muy nublado",
+                            "sky_condition": "muy nublado",
+                            "temperature": 17.0,
+                            "weather_icon_code": "clouds",
+                            "wind_direction": "sudeste",
+                            "wind_intensity": "moderado"
+                        },
+                        {
+                            "daily_forecast_id": 4,
+                            "id": 13,
+                            "period": "tarde",
+                            "precipitation_description": "Lluvias dispersas",
+                            "sky_condition": "nublado",
+                            "temperature": 20.0,
+                            "weather_icon_code": "rain",
+                            "wind_direction": "este",
+                            "wind_intensity": "moderado"
+                        },
+                        {
+                            "daily_forecast_id": 4,
+                            "id": 14,
+                            "period": "noche",
+                            "precipitation_description": "Nublado",
+                            "sky_condition": "nublado",
+                            "temperature": 16.0,
+                            "weather_icon_code": "moon_clouds",
+                            "wind_direction": "noreste",
+                            "wind_intensity": "leves"
+                        }
+                    ],
+                    "temp_max": 20.0,
+                    "temp_max_apparent": 21.0,
+                    "temp_min": 14.0,
+                    "temp_min_apparent": 13.0
+                }
+            ],
+            "emission_time": "08:30:00",
+            "forecast_date": "2026-04-14",
+            "id": 3,
+            "location": "Mar del Plata"
+        }
+    },
+    "status": "success"
+}
