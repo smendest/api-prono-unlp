@@ -18,6 +18,7 @@ from models import (
     SkyCondition,
     WindDirection,
     WindIntensity,
+    Precipitation,
 )
 from datetime import datetime
 
@@ -129,8 +130,6 @@ def register_routes(app):
                     date=daily_date,
                     temp_min=float(daily_data.get("temp_min")) if daily_data.get("temp_min") else None,
                     temp_max=float(daily_data.get("temp_max")) if daily_data.get("temp_max") else None,
-                    temp_min_apparent=float(daily_data.get("temp_min_apparent")) if daily_data.get("temp_min_apparent") else None,
-                    temp_max_apparent=float(daily_data.get("temp_max_apparent")) if daily_data.get("temp_max_apparent") else None,
                 )
                 insert_record(daily_forecast)
 
@@ -148,13 +147,15 @@ def register_routes(app):
                     wind_direction = WindDirection(wind_direction_str) if wind_direction_str else None
                     wind_intensity_str = period_data.get("wind_intensity")
                     wind_intensity = WindIntensity(wind_intensity_str) if wind_intensity_str else None
+                    precipitation_str = period_data.get("precipitation_description")
+                    precipitation = Precipitation(precipitation_str) if precipitation_str else None
 
                     period_forecast = PeriodForecast(
                         daily_forecast_id=daily_forecast.id,
                         period=period,
                         temperature=float(period_data.get("temperature")) if period_data.get("temperature") else None,
                         sky_condition=sky_condition,
-                        precipitation_description=period_data.get("precipitation_description") if period_data.get("precipitation_description") else None,
+                        precipitation_description=precipitation,
                         wind_direction=wind_direction,
                         wind_intensity=wind_intensity,
                         weather_icon_code=period_data.get("weather_icon_code") if period_data.get("weather_icon_code") else None,
