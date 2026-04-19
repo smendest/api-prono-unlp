@@ -68,6 +68,15 @@ class SkyCondition(enum.Enum):
     OVERCAST = "muy nublado"
 
 
+class Precipitation(enum.Enum):
+    """Precipitation types"""
+
+    ISOLATED_RAINS = "lluvias aisladas"
+    DRIZZLE = "lloviznas"
+    RAINS_AND_ISOLATED_STORMS = "lluvias y tormentas aisladas"
+    ISOLATED_STORMS = "tormentas aisladas"
+
+
 class Forecast(db.Model):
     """Main forecast record - represents a single forecast issuance"""
 
@@ -138,12 +147,6 @@ class DailyForecast(db.Model):
     # Overall daily temperature range
     temp_min: Mapped[float] = mapped_column(Float, nullable=True)  # Actual minimum
     temp_max: Mapped[float] = mapped_column(Float, nullable=True)  # Actual maximum
-    temp_min_apparent: Mapped[float] = mapped_column(
-        Float, nullable=True
-    )  # Feels-like minimum
-    temp_max_apparent: Mapped[float] = mapped_column(
-        Float, nullable=True
-    )  # Feels-like maximum
 
     # Relationships
     forecast: Mapped["Forecast"] = relationship(
@@ -160,16 +163,12 @@ class DailyForecast(db.Model):
         date,
         temp_min=None,
         temp_max=None,
-        temp_min_apparent=None,
-        temp_max_apparent=None,
     ):
         self.forecast_id = forecast_id
         self.day_name = day_name
         self.date = date
         self.temp_min = temp_min
         self.temp_max = temp_max
-        self.temp_min_apparent = temp_min_apparent
-        self.temp_max_apparent = temp_max_apparent
 
     def to_dict(self):
         return {
@@ -179,8 +178,6 @@ class DailyForecast(db.Model):
             "date": self.date.isoformat() if self.date else None,
             "temp_min": self.temp_min,
             "temp_max": self.temp_max,
-            "temp_min_apparent": self.temp_min_apparent,
-            "temp_max_apparent": self.temp_max_apparent,
             "period_forecasts": [pf.to_dict() for pf in self.period_forecasts]
             if self.period_forecasts
             else [],
@@ -210,9 +207,9 @@ class PeriodForecast(db.Model):
     sky_condition: Mapped[SkyCondition] = mapped_column(
         Enum(SkyCondition), nullable=True
     )
-    precipitation_description: Mapped[str] = mapped_column(
-        String(200), nullable=True
-    )  # "Baja prob. de tormentas aisladas"
+    precipitation_description: Mapped[Precipitation] = mapped_column(
+        Enum(Precipitation), nullable=True
+    )  # "lluvias aisladas", "lloviznas", etc.
 
     # Wind information
     wind_direction: Mapped[WindDirection] = mapped_column(
@@ -260,7 +257,7 @@ class PeriodForecast(db.Model):
             "period": self.period.value if self.period else None,
             "temperature": self.temperature,
             "sky_condition": self.sky_condition.value if self.sky_condition else None,
-            "precipitation_description": self.precipitation_description,
+            "precipitation_description": self.precipitation_description.value if self.precipitation_description else None,
             "wind_direction": self.wind_direction.value
             if self.wind_direction
             else None,

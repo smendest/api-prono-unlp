@@ -33,6 +33,7 @@ from models import (
     WindIntensity,
     TimePeriod,
     SkyCondition,
+    Precipitation,
 )
 
 
@@ -76,8 +77,6 @@ def seed_sample_forecast():
                 date=date(2026, 2, 4),
                 temp_min=19.0,
                 temp_max=30.0,
-                temp_min_apparent=20.0,
-                temp_max_apparent=31.0,
             )
             db.session.add(wednesday)
             db.session.flush()
@@ -89,7 +88,7 @@ def seed_sample_forecast():
                     period=TimePeriod.EARLY_MORNING,
                     temperature=18.0,
                     sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
-                    precipitation_description="Algo nublado",
+                    precipitation_description=Precipitation.ISOLATED_STORMS,
                     wind_direction=WindDirection.SOUTHEAST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="moon_stars",
@@ -99,7 +98,7 @@ def seed_sample_forecast():
                     period=TimePeriod.MORNING,
                     temperature=20.0,
                     sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
-                    precipitation_description="Algo nublado",
+                    precipitation_description=Precipitation.ISOLATED_STORMS,
                     wind_direction=WindDirection.SOUTHEAST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="sun_clouds",
@@ -109,7 +108,7 @@ def seed_sample_forecast():
                     period=TimePeriod.AFTERNOON,
                     temperature=31.0,
                     sky_condition=SkyCondition.CLOUDY,
-                    precipitation_description="Baja prob. de tormentas aisladas",
+                    precipitation_description=Precipitation.RAINS_AND_ISOLATED_STORMS,
                     wind_direction=WindDirection.SOUTHEAST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="storm",
@@ -119,7 +118,7 @@ def seed_sample_forecast():
                     period=TimePeriod.NIGHT,
                     temperature=25.0,
                     sky_condition=SkyCondition.PARTLY_CLOUDY,
-                    precipitation_description="Parcialmente nublado",
+                    precipitation_description=Precipitation.ISOLATED_RAINS,
                     wind_direction=WindDirection.WEST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="moon_clouds",
@@ -142,8 +141,6 @@ def seed_sample_forecast():
                 date=date(2026, 2, 5),
                 temp_min=23.0,
                 temp_max=29.0,
-                temp_min_apparent=24.0,
-                temp_max_apparent=30.0,
             )
             db.session.add(thursday)
             db.session.flush()
@@ -155,7 +152,7 @@ def seed_sample_forecast():
                     period=TimePeriod.EARLY_MORNING,
                     temperature=25.0,
                     sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
-                    precipitation_description="Algo nublado",
+                    precipitation_description=Precipitation.ISOLATED_RAINS,
                     wind_direction=WindDirection.EAST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="moon_stars",
@@ -165,7 +162,7 @@ def seed_sample_forecast():
                     period=TimePeriod.MORNING,
                     temperature=24.0,
                     sky_condition=SkyCondition.CLOUDY,
-                    precipitation_description="Prob. de lluvias y tormentas",
+                    precipitation_description=Precipitation.RAINS_AND_ISOLATED_STORMS,
                     wind_direction=WindDirection.EAST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="rain_storm",
@@ -175,7 +172,7 @@ def seed_sample_forecast():
                     period=TimePeriod.AFTERNOON,
                     temperature=30.0,
                     sky_condition=SkyCondition.CLOUDY,
-                    precipitation_description="Prob. de lluvias y tormentas",
+                    precipitation_description=Precipitation.RAINS_AND_ISOLATED_STORMS,
                     wind_direction=WindDirection.WEST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="rain_storm",
@@ -185,7 +182,7 @@ def seed_sample_forecast():
                     period=TimePeriod.NIGHT,
                     temperature=25.0,
                     sky_condition=SkyCondition.CLOUDY,
-                    precipitation_description="Prob. de lluvias y tormentas",
+                    precipitation_description=Precipitation.RAINS_AND_ISOLATED_STORMS,
                     wind_direction=WindDirection.SOUTH,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="rain_storm_night",
@@ -207,8 +204,6 @@ def seed_sample_forecast():
                 date=date(2026, 2, 6),
                 temp_min=20.0,
                 temp_max=28.0,
-                temp_min_apparent=19.0,
-                temp_max_apparent=29.0,
             )
             db.session.add(friday)
             db.session.flush()
@@ -220,7 +215,7 @@ def seed_sample_forecast():
                     period=TimePeriod.MORNING,
                     temperature=22.0,
                     sky_condition=SkyCondition.PARTLY_CLOUDY,
-                    precipitation_description="Parcialmente nublado",
+                    precipitation_description=Precipitation.ISOLATED_RAINS,
                     wind_direction=WindDirection.NORTH,
                     wind_intensity=WindIntensity.MODERATE,
                     weather_icon_code="sun_clouds",
@@ -230,7 +225,7 @@ def seed_sample_forecast():
                     period=TimePeriod.NIGHT,
                     temperature=21.0,
                     sky_condition=SkyCondition.CLEAR,
-                    precipitation_description="Despejado",
+                    precipitation_description=Precipitation.DRIZZLE,
                     wind_direction=WindDirection.NORTHWEST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="moon_clear",
@@ -252,8 +247,6 @@ def seed_sample_forecast():
                 date=date(2026, 2, 7),
                 temp_min=18.0,
                 temp_max=26.0,
-                temp_min_apparent=17.0,
-                temp_max_apparent=27.0,
             )
             db.session.add(saturday)
             db.session.flush()
@@ -265,7 +258,7 @@ def seed_sample_forecast():
                     period=TimePeriod.MORNING,
                     temperature=20.0,
                     sky_condition=SkyCondition.CLEAR,
-                    precipitation_description="Despejado",
+                    precipitation_description=Precipitation.DRIZZLE,
                     wind_direction=WindDirection.NORTHEAST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="sun",
@@ -275,7 +268,7 @@ def seed_sample_forecast():
                     period=TimePeriod.NIGHT,
                     temperature=19.0,
                     sky_condition=SkyCondition.PARTLY_CLOUDY,
-                    precipitation_description="Parcialmente nublado",
+                    precipitation_description=Precipitation.ISOLATED_RAINS,
                     wind_direction=WindDirection.EAST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="moon_clouds",
@@ -328,8 +321,6 @@ def seed_mar_del_plata_forecasts():
             date=date(2026, 4, 13),
             temp_min=16.0,
             temp_max=22.0,
-            temp_min_apparent=15.0,
-            temp_max_apparent=23.0,
         )
         db.session.add(sunday)
         db.session.flush()
@@ -341,7 +332,7 @@ def seed_mar_del_plata_forecasts():
                 period=TimePeriod.EARLY_MORNING,
                 temperature=15.0,
                 sky_condition=SkyCondition.CLEAR,
-                precipitation_description="Despejado",
+                precipitation_description=Precipitation.DRIZZLE,
                 wind_direction=WindDirection.SOUTHWEST,
                 wind_intensity=WindIntensity.LIGHT,
                 weather_icon_code="moon_clear",
@@ -351,7 +342,7 @@ def seed_mar_del_plata_forecasts():
                 period=TimePeriod.MORNING,
                 temperature=18.0,
                 sky_condition=SkyCondition.CLEAR,
-                precipitation_description="Despejado",
+                precipitation_description=Precipitation.DRIZZLE,
                 wind_direction=WindDirection.SOUTHWEST,
                 wind_intensity=WindIntensity.MODERATE,
                 weather_icon_code="sun",
@@ -361,7 +352,7 @@ def seed_mar_del_plata_forecasts():
                 period=TimePeriod.AFTERNOON,
                 temperature=22.0,
                 sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
-                precipitation_description="Algo nublado",
+                precipitation_description=Precipitation.ISOLATED_RAINS,
                 wind_direction=WindDirection.SOUTHWEST,
                 wind_intensity=WindIntensity.MODERATE,
                 weather_icon_code="sun_clouds",
@@ -371,7 +362,7 @@ def seed_mar_del_plata_forecasts():
                 period=TimePeriod.NIGHT,
                 temperature=17.0,
                 sky_condition=SkyCondition.PARTLY_CLOUDY,
-                precipitation_description="Parcialmente nublado",
+                precipitation_description=Precipitation.ISOLATED_RAINS,
                 wind_direction=WindDirection.SOUTH,
                 wind_intensity=WindIntensity.LIGHT,
                 weather_icon_code="moon_clouds",
@@ -386,8 +377,6 @@ def seed_mar_del_plata_forecasts():
             date=date(2026, 4, 14),
             temp_min=14.0,
             temp_max=20.0,
-            temp_min_apparent=13.0,
-            temp_max_apparent=21.0,
         )
         db.session.add(monday)
         db.session.flush()
@@ -399,7 +388,7 @@ def seed_mar_del_plata_forecasts():
                 period=TimePeriod.EARLY_MORNING,
                 temperature=15.0,
                 sky_condition=SkyCondition.CLOUDY,
-                precipitation_description="Nublado",
+                precipitation_description=Precipitation.ISOLATED_RAINS,
                 wind_direction=WindDirection.SOUTHEAST,
                 wind_intensity=WindIntensity.MODERATE,
                 weather_icon_code="moon_clouds",
@@ -409,7 +398,7 @@ def seed_mar_del_plata_forecasts():
                 period=TimePeriod.MORNING,
                 temperature=17.0,
                 sky_condition=SkyCondition.OVERCAST,
-                precipitation_description="Muy nublado",
+                precipitation_description=Precipitation.ISOLATED_STORMS,
                 wind_direction=WindDirection.SOUTHEAST,
                 wind_intensity=WindIntensity.MODERATE,
                 weather_icon_code="clouds",
@@ -419,7 +408,7 @@ def seed_mar_del_plata_forecasts():
                 period=TimePeriod.AFTERNOON,
                 temperature=20.0,
                 sky_condition=SkyCondition.CLOUDY,
-                precipitation_description="Lluvias dispersas",
+                precipitation_description=Precipitation.ISOLATED_RAINS,
                 wind_direction=WindDirection.EAST,
                 wind_intensity=WindIntensity.MODERATE,
                 weather_icon_code="rain",
@@ -429,7 +418,7 @@ def seed_mar_del_plata_forecasts():
                 period=TimePeriod.NIGHT,
                 temperature=16.0,
                 sky_condition=SkyCondition.CLOUDY,
-                precipitation_description="Nublado",
+                precipitation_description=Precipitation.ISOLATED_RAINS,
                 wind_direction=WindDirection.NORTHEAST,
                 wind_intensity=WindIntensity.LIGHT,
                 weather_icon_code="moon_clouds",
@@ -444,8 +433,6 @@ def seed_mar_del_plata_forecasts():
             date=date(2026, 4, 15),
             temp_min=13.0,
             temp_max=19.0,
-            temp_min_apparent=12.0,
-            temp_max_apparent=20.0,
         )
         db.session.add(tuesday)
         db.session.flush()
@@ -457,7 +444,7 @@ def seed_mar_del_plata_forecasts():
                 period=TimePeriod.MORNING,
                 temperature=16.0,
                 sky_condition=SkyCondition.PARTLY_CLOUDY,
-                precipitation_description="Parcialmente nublado",
+                precipitation_description=Precipitation.ISOLATED_RAINS,
                 wind_direction=WindDirection.NORTH,
                 wind_intensity=WindIntensity.MODERATE,
                 weather_icon_code="sun_clouds",
@@ -467,35 +454,53 @@ def seed_mar_del_plata_forecasts():
                 period=TimePeriod.NIGHT,
                 temperature=14.0,
                 sky_condition=SkyCondition.CLEAR,
-                precipitation_description="Despejado",
+                precipitation_description=Precipitation.DRIZZLE,
                 wind_direction=WindDirection.NORTHWEST,
                 wind_intensity=WindIntensity.LIGHT,
                 weather_icon_code="moon_clear",
             ),
-        ]
-        db.session.add_all(tue_periods)
 
-        # Day 4 - Wednesday - Only day and night periods
-        wednesday = DailyForecast(
-            forecast_id=forecast_1.id,
-            day_name=Day.WEDNESDAY,
-            date=date(2026, 4, 16),
-            temp_min=12.0,
-            temp_max=18.0,
-            temp_min_apparent=11.0,
-            temp_max_apparent=19.0,
-        )
-        db.session.add(wednesday)
-        db.session.flush()
+# Day 4 - Wednesday - Only day and night periods
+wednesday = DailyForecast(
+forecast_id=forecast_1.id,
+day_name=Day.WEDNESDAY,
+date=date(2026, 4, 16),
+temp_min=12.0,
+temp_max=18.0,
+)
+db.session.add(wednesday)
+db.session.flush()
 
-        # Only day and night periods for Wednesday
-        wed_periods = [
+# Only day and night periods for Wednesday
+wed_periods = [
+PeriodForecast(
+daily_forecast_id=wednesday.id,
+period=TimePeriod.MORNING,
+temperature=15.0,
+sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
+precipitation_description=Precipitation.ISOLATED_RAINS,
+wind_direction=WindDirection.NORTHEAST,
+wind_intensity=WindIntensity.LIGHT,
+weather_icon_code="sun_clouds",
+),
+PeriodForecast(
+daily_forecast_id=wednesday.id,
+period=TimePeriod.NIGHT,
+temperature=13.0,
+sky_condition=SkyCondition.PARTLY_CLOUDY,
+precipitation_description=Precipitation.ISOLATED_RAINS,
+wind_direction=WindDirection.EAST,
+wind_intensity=WindIntensity.LIGHT,
+weather_icon_code="moon_clouds",
+),
+]
+db.session.add_all(wed_periods)
             PeriodForecast(
                 daily_forecast_id=wednesday.id,
                 period=TimePeriod.MORNING,
                 temperature=15.0,
                 sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
-                precipitation_description="Algo nublado",
+                precipitation_description=Precipitation.ISOLATED_RAINS,
                 wind_direction=WindDirection.NORTHEAST,
                 wind_intensity=WindIntensity.LIGHT,
                 weather_icon_code="sun_clouds",
@@ -505,7 +510,7 @@ def seed_mar_del_plata_forecasts():
                 period=TimePeriod.NIGHT,
                 temperature=13.0,
                 sky_condition=SkyCondition.PARTLY_CLOUDY,
-                precipitation_description="Parcialmente nublado",
+                precipitation_description=Precipitation.ISOLATED_RAINS,
                 wind_direction=WindDirection.EAST,
                 wind_intensity=WindIntensity.LIGHT,
                 weather_icon_code="moon_clouds",
@@ -553,9 +558,6 @@ def verify_forecast(forecast_id):
         for daily in forecast.daily_forecasts:
             print(f"\n  {daily.day_name.value} ({daily.date}):")
             print(f"    Temp: {daily.temp_min}°C - {daily.temp_max}°C")
-            print(
-                f"    Apparent: {daily.temp_min_apparent}°C - {daily.temp_max_apparent}°C"
-            )
             print(f"    Periods: {len(daily.period_forecasts)}")
 
             for period in daily.period_forecasts:
