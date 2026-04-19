@@ -459,42 +459,22 @@ def seed_mar_del_plata_forecasts():
                 wind_intensity=WindIntensity.LIGHT,
                 weather_icon_code="moon_clear",
             ),
+        ]
+        db.session.add_all(tue_periods)
 
 # Day 4 - Wednesday - Only day and night periods
-wednesday = DailyForecast(
-forecast_id=forecast_1.id,
-day_name=Day.WEDNESDAY,
-date=date(2026, 4, 16),
-temp_min=12.0,
-temp_max=18.0,
-)
-db.session.add(wednesday)
-db.session.flush()
+        wednesday = DailyForecast(
+            forecast_id=forecast_1.id,
+            day_name=Day.WEDNESDAY,
+            date=date(2026, 4, 16),
+            temp_min=12.0,
+            temp_max=18.0,
+        )
+        db.session.add(wednesday)
+        db.session.flush()
 
-# Only day and night periods for Wednesday
-wed_periods = [
-PeriodForecast(
-daily_forecast_id=wednesday.id,
-period=TimePeriod.MORNING,
-temperature=15.0,
-sky_condition=SkyCondition.SOMEWHAT_CLOUDY,
-precipitation_description=Precipitation.ISOLATED_RAINS,
-wind_direction=WindDirection.NORTHEAST,
-wind_intensity=WindIntensity.LIGHT,
-weather_icon_code="sun_clouds",
-),
-PeriodForecast(
-daily_forecast_id=wednesday.id,
-period=TimePeriod.NIGHT,
-temperature=13.0,
-sky_condition=SkyCondition.PARTLY_CLOUDY,
-precipitation_description=Precipitation.ISOLATED_RAINS,
-wind_direction=WindDirection.EAST,
-wind_intensity=WindIntensity.LIGHT,
-weather_icon_code="moon_clouds",
-),
-]
-db.session.add_all(wed_periods)
+        # Only day and night periods for Wednesday
+        wed_periods = [
             PeriodForecast(
                 daily_forecast_id=wednesday.id,
                 period=TimePeriod.MORNING,
@@ -517,7 +497,6 @@ db.session.add_all(wed_periods)
             ),
         ]
         db.session.add_all(wed_periods)
-
 
         # Commit all changes
         db.session.commit()
@@ -646,13 +625,13 @@ if __name__ == "__main__":
         elif command == "mdp":
             seed_mar_del_plata_forecasts()
 
-        elif command == "all":
+        elif command == "create":
             seed_sample_forecast()
             seed_mar_del_plata_forecasts()
 
         else:
             print(f"Unknown command: {command}")
-            print("Available commands: [default], clear, list, verify, mdp, all")
+            print("Available commands: [default], clear, list, verify, mdp, create")
 
     else:
         # Default: seed sample data

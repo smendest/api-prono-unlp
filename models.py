@@ -112,15 +112,14 @@ class Forecast(db.Model):
 
     def to_dict(self):
         return {
-            "id": self.id,
-            "forecast_date": self.forecast_date.isoformat()
-            if self.forecast_date
-            else None,
             "emission_time": self.emission_time.isoformat()
             if self.emission_time
             else None,
+            "forecast_date": self.forecast_date.isoformat()
+            if self.forecast_date
+            else None,
+            "id": self.id,
             "location": self.location.value if self.location else None,
-            "created_at": self.created_at.isoformat() if self.created_at else None,
             "daily_forecasts": [df.to_dict() for df in self.daily_forecasts]
             if self.daily_forecasts
             else [],
@@ -257,7 +256,9 @@ class PeriodForecast(db.Model):
             "period": self.period.value if self.period else None,
             "temperature": self.temperature,
             "sky_condition": self.sky_condition.value if self.sky_condition else None,
-            "precipitation_description": self.precipitation_description.value if self.precipitation_description else None,
+            "precipitation_description": self.precipitation_description.value
+            if self.precipitation_description
+            else None,
             "wind_direction": self.wind_direction.value
             if self.wind_direction
             else None,
