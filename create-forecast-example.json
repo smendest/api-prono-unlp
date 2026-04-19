@@ -1,171 +1,156 @@
 {
-    "data": {
-        "emission_time": "07:45:00",
-        "forecast_date": "2026-02-04",
-        "id": 1,
-        "location": "La Plata",
-        "daily_forecasts": [
-            {
-                "date": "2026-02-04",
-                "day_name": "miércoles",
-                "forecast_id": 1,
-                "id": 1,
-                "period_forecasts": [
-                    {
-                        "daily_forecast_id": 1,
-                        "id": 2,
-                        "period": "mañana",
-                        "precipitation_description": "Algo nublado",
-                        "sky_condition": "algo nublado",
-                        "temperature": 20.0,
-                        "weather_icon_code": "sun_clouds",
-                        "wind_direction": "sudeste",
-                        "wind_intensity": "leves"
-                    },
-                    {
-                        "daily_forecast_id": 1,
-                        "id": 3,
-                        "period": "tarde",
-                        "precipitation_description": "Baja prob. de tormentas aisladas",
-                        "sky_condition": "nublado",
-                        "temperature": 31.0,
-                        "weather_icon_code": "storm",
-                        "wind_direction": "sudeste",
-                        "wind_intensity": "leves"
-                    },
-                    {
-                        "daily_forecast_id": 1,
-                        "id": 4,
-                        "period": "noche",
-                        "precipitation_description": "Parcialmente nublado",
-                        "sky_condition": "parcialmente nublado",
-                        "temperature": 25.0,
-                        "weather_icon_code": "moon_clouds",
-                        "wind_direction": "oeste",
-                        "wind_intensity": "leves"
-                    }
-                ],
-                "temp_max": 30.0,
-                "temp_min": 19.0
-            },
-            {
-                "date": "2026-02-05",
-                "day_name": "jueves",
-                "forecast_id": 1,
-                "id": 2,
-                "period_forecasts": [
-                    {
-                        "daily_forecast_id": 2,
-                        "id": 5,
-                        "period": "madrugada",
-                        "precipitation_description": "Algo nublado",
-                        "sky_condition": "algo nublado",
-                        "temperature": 25.0,
-                        "weather_icon_code": "moon_stars",
-                        "wind_direction": "este",
-                        "wind_intensity": "leves"
-                    },
-                    {
-                        "daily_forecast_id": 2,
-                        "id": 6,
-                        "period": "mañana",
-                        "precipitation_description": "Prob. de lluvias y tormentas",
-                        "sky_condition": "nublado",
-                        "temperature": 24.0,
-                        "weather_icon_code": "rain_storm",
-                        "wind_direction": "este",
-                        "wind_intensity": "leves"
-                    },
-                    {
-                        "daily_forecast_id": 2,
-                        "id": 7,
-                        "period": "tarde",
-                        "precipitation_description": "Prob. de lluvias y tormentas",
-                        "sky_condition": "nublado",
-                        "temperature": 30.0,
-                        "weather_icon_code": "rain_storm",
-                        "wind_direction": "oeste",
-                        "wind_intensity": "leves"
-                    },
-                    {
-                        "daily_forecast_id": 2,
-                        "id": 8,
-                        "period": "noche",
-                        "precipitation_description": "Prob. de lluvias y tormentas",
-                        "sky_condition": "nublado",
-                        "temperature": 25.0,
-                        "weather_icon_code": "rain_storm_night",
-                        "wind_direction": "sur",
-                        "wind_intensity": "leves"
-                    }
-                ],
-                "temp_max": 29.0,
-                "temp_min": 23.0
-            },
-            {
-                "date": "2026-02-06",
-                "day_name": "viernes",
-                "forecast_id": 1,
-                "id": 3,
-                "period_forecasts": [
-                    {
-                        "daily_forecast_id": 3,
-                        "id": 9,
-                        "period": "mañana",
-                        "precipitation_description": "Parcialmente nublado",
-                        "sky_condition": "parcialmente nublado",
-                        "temperature": 22.0,
-                        "weather_icon_code": "sun_clouds",
-                        "wind_direction": "norte",
-                        "wind_intensity": "moderado"
-                    },
-                    {
-                        "daily_forecast_id": 3,
-                        "id": 10,
-                        "period": "noche",
-                        "precipitation_description": "Despejado",
-                        "sky_condition": "despejado",
-                        "temperature": 21.0,
-                        "weather_icon_code": "moon_clear",
-                        "wind_direction": "noroeste",
-                        "wind_intensity": "leves"
-                    }
-                ],
-                "temp_max": 28.0,
-                "temp_min": 20.0
-            },
-            {
-                "date": "2026-02-07",
-                "day_name": "sábado",
-                "forecast_id": 1,
-                "id": 4,
-                "period_forecasts": [
-                    {
-                        "daily_forecast_id": 4,
-                        "id": 11,
-                        "period": "mañana",
-                        "precipitation_description": "Despejado",
-                        "sky_condition": "despejado",
-                        "temperature": 20.0,
-                        "weather_icon_code": "sun",
-                        "wind_direction": "noreste",
-                        "wind_intensity": "leves"
-                    },
-                    {
-                        "daily_forecast_id": 4,
-                        "id": 12,
-                        "period": "noche",
-                        "precipitation_description": "Parcialmente nublado",
-                        "sky_condition": "parcialmente nublado",
-                        "temperature": 19.0,
-                        "weather_icon_code": "moon_clouds",
-                        "wind_direction": "este",
-                        "wind_intensity": "leves"
-                    }
-                ],
-                "temp_max": 26.0,
-                "temp_min": 18.0
-            }
-        ]
-    }
+    "emission_time": "07:45:00",
+    "forecast_date": "2026-02-04",
+    "city": "La Plata",
+    "daily_forecasts": [
+        {
+            "date": "2026-02-04",
+            "day_name": "miércoles",
+            "period_forecasts": [
+                {
+                    "period": "mañana",
+                    "precipitation_description": "lluvias aisladas",
+                    "sky_condition": "algo nublado",
+                    "temperature": 20.0,
+                    "weather_icon_code": "sun_clouds",
+                    "wind_direction": "sudeste",
+                    "wind_intensity": "leves"
+                },
+                {
+                    "period": "tarde",
+                    "precipitation_description": "lloviznas",
+                    "sky_condition": "nublado",
+                    "temperature": 31.0,
+                    "weather_icon_code": "storm",
+                    "wind_direction": "sudeste",
+                    "wind_intensity": "leves"
+                },
+                {
+                    "period": "noche",
+                    "precipitation_description": "tormentas aisladas",
+                    "sky_condition": "parcialmente nublado",
+                    "temperature": 25.0,
+                    "weather_icon_code": "moon_clouds",
+                    "wind_direction": "oeste",
+                    "wind_intensity": "leves"
+                }
+            ],
+            "temp_max": 30.0,
+            "temp_min": 19.0
+        },
+        {
+            "date": "2026-02-05",
+            "day_name": "jueves",
+            "period_forecasts": [
+                {
+                    "period": "madrugada",
+                    "precipitation_description": "lluvias y tormentas aisladas",
+                    "sky_condition": "algo nublado",
+                    "temperature": 25.0,
+                    "weather_icon_code": "moon_stars",
+                    "wind_direction": "este",
+                    "wind_intensity": "leves"
+                },
+                {
+                    "period": "madrugada",
+                    "precipitation_description": "lluvias aisladas",
+                    "sky_condition": "algo nublado",
+                    "temperature": 25.0,
+                    "weather_icon_code": "moon_stars",
+                    "wind_direction": "este",
+                    "wind_intensity": "leves"
+                },
+                {
+                    "period": "mañana",
+                    "precipitation_description": "lluvias aisladas",
+                    "sky_condition": "nublado",
+                    "temperature": 24.0,
+                    "weather_icon_code": "rain_storm",
+                    "wind_direction": "este",
+                    "wind_intensity": "leves"
+                },
+                {
+                    "period": "tarde",
+                    "precipitation_description": "",
+                    "sky_condition": "nublado",
+                    "temperature": 30.0,
+                    "weather_icon_code": "rain_storm",
+                    "wind_direction": "oeste",
+                    "wind_intensity": "leves"
+                },
+                {
+                    "period": "noche",
+                    "precipitation_description": "",
+                    "sky_condition": "nublado",
+                    "temperature": 25.0,
+                    "weather_icon_code": "rain_storm_night",
+                    "wind_direction": "sur",
+                    "wind_intensity": "leves"
+                }
+            ],
+            "temp_max": 29.0,
+            "temp_min": 23.0
+        },
+        {
+            "date": "2026-02-06",
+            "day_name": "viernes",
+            "period_forecasts": [
+                {
+                    "period": "mañana",
+                    "precipitation_description": "",
+                    "sky_condition": "parcialmente nublado",
+                    "temperature": 22.0,
+                    "weather_icon_code": "sun_clouds",
+                    "wind_direction": "norte",
+                    "wind_intensity": "moderado"
+                },
+                {
+                    "period": "mañana",
+                    "precipitation_description": "",
+                    "sky_condition": "parcialmente nublado",
+                    "temperature": 22.0,
+                    "weather_icon_code": "sun_clouds",
+                    "wind_direction": "norte",
+                    "wind_intensity": "moderado"
+                },
+                {
+                    "period": "noche",
+                    "precipitation_description": "",
+                    "sky_condition": "despejado",
+                    "temperature": 21.0,
+                    "weather_icon_code": "moon_clear",
+                    "wind_direction": "noroeste",
+                    "wind_intensity": "leves"
+                }
+            ],
+            "temp_max": 28.0,
+            "temp_min": 20.0
+        },
+        {
+            "date": "2026-02-07",
+            "day_name": "sábado",
+            "period_forecasts": [
+                {
+                    "period": "mañana",
+                    "precipitation_description": "",
+                    "sky_condition": "despejado",
+                    "temperature": 20.0,
+                    "weather_icon_code": "sun",
+                    "wind_direction": "noreste",
+                    "wind_intensity": "leves"
+                },
+                {
+                    "period": "noche",
+                    "precipitation_description": "",
+                    "sky_condition": "parcialmente nublado",
+                    "temperature": 19.0,
+                    "weather_icon_code": "moon_clouds",
+                    "wind_direction": "este",
+                    "wind_intensity": "leves"
+                }
+            ],
+            "temp_max": 26.0,
+            "temp_min": 18.0
+        }
+    ]
 }

@@ -98,7 +98,12 @@ def register_routes(app):
             # Convert strings to appropriate types
             city_enum = City(city_str)
             forecast_date = datetime.strptime(forecast_date_str, "%Y-%m-%d").date()
-            emission_time = datetime.strptime(emission_time_str, "%H:%M").time()
+            
+            # Handle both HH:MM and HH:MM:SS time formats
+            try:
+                emission_time = datetime.strptime(emission_time_str, "%H:%M:%S").time()
+            except ValueError:
+                emission_time = datetime.strptime(emission_time_str, "%H:%M").time()
 
             # Create Forecast
             new_forecast = Forecast(forecast_date, emission_time, city_enum)
@@ -148,7 +153,7 @@ def register_routes(app):
                     wind_intensity_str = period_data.get("wind_intensity")
                     wind_intensity = WindIntensity(wind_intensity_str) if wind_intensity_str else None
                     precipitation_str = period_data.get("precipitation_description")
-                    precipitation = Precipitation(precipitation_str) if precipitation_str else None
+                    precipitation = Precipitation(precipitation_str) if precipitation_str and precipitation_str.strip() else None
 
                     period_forecast = PeriodForecast(
                         daily_forecast_id=daily_forecast.id,
@@ -172,10 +177,6 @@ def register_routes(app):
                 {
                     "message": "Forecast created successfully",
                     "forecast_id": new_forecast.id,
-                    "forecast": {
-                        **new_forecast.to_dict(),
-                        "daily_forecasts": created_daily_forecasts
-                    },
                     "status": "success",
                 }
             ), 201
