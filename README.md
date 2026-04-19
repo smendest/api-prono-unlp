@@ -37,7 +37,6 @@ source .venv/bin/activate
 ### 2. Installing dependencies
 
 ```bash
-# Install dependencies
 pip install -r requirements.txt
 ```
 
@@ -51,6 +50,8 @@ flask run
 You can deactivate a virtual environment by typing `deactivate` in your shell.
 
 ## Testing db scripts
+
+The following commands are useful to create fake data to test the application.
 
 ```bash
 # Activate virtual environment
