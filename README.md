@@ -18,7 +18,7 @@ After cloning the project we need to follow these steps:
 
 Steps to create a python virtual env:
 
-1. Create the `.venv` file in your project directory:
+- Create the `.venv` file in your project directory:
 
 ```bash
 python3 -m venv .venv
@@ -28,7 +28,7 @@ python3 -m venv .venv
 `venv`: is a package in the Python Standard Library for creating lightweight Virtual Environments.
 Read more on [venv official python doc](https://docs.python.org/3/library/venv.html).
 
-1. Activate virtual env:
+- Activate virtual env:
 
 ```bash
 source .venv/bin/activate
@@ -37,7 +37,6 @@ source .venv/bin/activate
 ### 2. Installing dependencies
 
 ```bash
-# Install dependencies
 pip install -r requirements.txt
 ```
 
@@ -52,6 +51,8 @@ You can deactivate a virtual environment by typing `deactivate` in your shell.
 
 ## Testing db scripts
 
+The following commands are useful to create fake data to test the application.
+
 ```bash
 # Activate virtual environment
 . .venv/bin/activate
@@ -60,8 +61,9 @@ You can deactivate a virtual environment by typing `deactivate` in your shell.
 python3 scripts/seed_data.py clear
 
 # Create all data with the new structure
-python3 scripts/seed_data.py all
+python3 scripts/seed_data.py create
 
 # Verify the created data
 python3 scripts/seed_data.py list
 ```
+
