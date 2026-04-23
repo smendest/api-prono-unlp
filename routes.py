@@ -28,7 +28,7 @@ def register_routes(app):
 
     @app.route("/api/v1/forecasts/latest", methods=["GET"])
     def get_latest_forecast_endpoint():
-        return jsonify({"data": get_latest_forecast(), "status": "success"})
+        return jsonify({**get_latest_forecast(), "status": "success"})
 
     @app.route("/api/v1/forecasts", methods=["GET"])
     def list_all_forecasts():
