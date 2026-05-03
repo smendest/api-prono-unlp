@@ -1,10 +1,8 @@
-# Pronóstico del tiempo, Facultad de Ciencias Astronómicas y Geofísicas - UNLP
+# Weather Forecast, School of Astronomical and Geophysical Sciences - UNLP
 
-API for the Pronostico UNLP website.
+API for <https://pronostico-unlp.vercel.app> wich is an improvement of their former [web page](https://www.fcaglp.unlp.edu.ar/index.php/pronostico-del-tiempo/).
 
-Based on their former [web page](https://www.fcaglp.unlp.edu.ar/index.php/pronostico-del-tiempo/)
-
-## Run the app
+## Running the app
 
 The following instructions are for a Linux system.
 
@@ -66,4 +64,3 @@ python3 scripts/seed_data.py create
 # Verify the created data
 python3 scripts/seed_data.py list
 ```
-
