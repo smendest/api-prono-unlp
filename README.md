@@ -1,6 +1,6 @@
 # Weather Forecast, School of Astronomical and Geophysical Sciences - UNLP
 
-API for <https://pronostico-unlp.vercel.app> wich is an improvement of their former [web page](https://www.fcaglp.unlp.edu.ar/index.php/pronostico-del-tiempo/).
+Backend, implemented as a REST API, for <https://pronostico-unlp.vercel.app> wich is an improvement of their former [web page](https://www.fcaglp.unlp.edu.ar/index.php/pronostico-del-tiempo/).
 
 ## Running the app
 
