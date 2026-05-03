@@ -16,6 +16,12 @@ curl -s http://localhost:5000/api/v1/forecasts/latest | python3 -m json.tool
 
 ### Crear un nuevo pronóstico (`POST /api/v1/forecasts`)
 
+```sh
+curl -X POST http://localhost:5000/api/v1/forecasts \
+    -H "Content-Type: application/json" \
+    -d @../docs/create-forecast-example.json
+```
+
 Para crear un nuevo pronóstico con `POST /api/v1/forecasts`, debes enviar un JSON con esta estructura:
 
 **Estructura completa del JSON:**
