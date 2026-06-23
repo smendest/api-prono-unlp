@@ -6,151 +6,174 @@
         {
             "date": "2026-02-04",
             "day_name": "miércoles",
+            "temp_min": 19.0,
+            "temp_max": 30.0,
+            "temp_min_apparent": 20.0,
+            "temp_max_apparent": 31.0,
             "period_forecasts": [
                 {
                     "period": "mañana",
-                    "precipitation_description": "lluvias aisladas",
-                    "sky_condition": "algo nublado",
                     "temperature": 20.0,
-                    "weather_icon_code": "sun_clouds",
+                    "sky_condition": "algo nublado",
+                    "precipitation_description": "lluvias aisladas",
+                    "probability_of_precipitation": "10 a 40 %",
                     "wind_direction": "sudeste",
-                    "wind_intensity": "leves"
+                    "wind_intensity": "leves",
+                    "wind_gusts": 35,
+                    "weather_icon_code": "sun_clouds"
                 },
                 {
                     "period": "tarde",
-                    "precipitation_description": "lloviznas",
-                    "sky_condition": "nublado",
                     "temperature": 31.0,
-                    "weather_icon_code": "storm",
+                    "sky_condition": "nublado",
+                    "precipitation_description": "lloviznas",
+                    "probability_of_precipitation": "20 a 60 %",
                     "wind_direction": "sudeste",
-                    "wind_intensity": "leves"
+                    "wind_intensity": "leves",
+                    "wind_gusts": 45,
+                    "weather_icon_code": "storm"
                 },
                 {
                     "period": "noche",
-                    "precipitation_description": "tormentas aisladas",
-                    "sky_condition": "parcialmente nublado",
                     "temperature": 25.0,
-                    "weather_icon_code": "moon_clouds",
-                    "wind_direction": "oeste",
-                    "wind_intensity": "leves"
+                    "sky_condition": "nublado",
+                    "precipitation_description": "",
+                    "probability_of_precipitation": "30 a 70 %",
+                    "wind_direction": "sur",
+                    "wind_intensity": "leves",
+                    "wind_gusts": 30,
+                    "weather_icon_code": "rain_storm"
+                },
+                {
+                    "period": "madrugada",
+                    "temperature": 18.0,
+                    "sky_condition": "despejado",
+                    "precipitation_description": "",
+                    "probability_of_precipitation": "0 a 20 %",
+                    "wind_direction": "norte",
+                    "wind_intensity": "leves",
+                    "wind_gusts": 20,
+                    "weather_icon_code": "moon_clear"
                 }
-            ],
-            "temp_max": 30.0,
-            "temp_min": 19.0
+            ]
         },
         {
             "date": "2026-02-05",
             "day_name": "jueves",
+            "temp_min": 23.0,
+            "temp_max": 29.0,
+            "temp_min_apparent": 24.0,
+            "temp_max_apparent": 30.0,
             "period_forecasts": [
                 {
-                    "period": "madrugada",
-                    "precipitation_description": "lluvias y tormentas aisladas",
-                    "sky_condition": "algo nublado",
-                    "temperature": 25.0,
-                    "weather_icon_code": "moon_stars",
-                    "wind_direction": "este",
-                    "wind_intensity": "leves"
-                },
-                {
-                    "period": "madrugada",
-                    "precipitation_description": "lluvias aisladas",
-                    "sky_condition": "algo nublado",
-                    "temperature": 25.0,
-                    "weather_icon_code": "moon_stars",
-                    "wind_direction": "este",
-                    "wind_intensity": "leves"
-                },
-                {
                     "period": "mañana",
-                    "precipitation_description": "lluvias aisladas",
-                    "sky_condition": "nublado",
                     "temperature": 24.0,
-                    "weather_icon_code": "rain_storm",
+                    "sky_condition": "nublado",
+                    "precipitation_description": "",
+                    "probability_of_precipitation": "10 a 30 %",
                     "wind_direction": "este",
-                    "wind_intensity": "leves"
+                    "wind_intensity": "moderado",
+                    "wind_gusts": 40,
+                    "weather_icon_code": "clouds"
                 },
                 {
                     "period": "tarde",
+                    "temperature": 28.0,
+                    "sky_condition": "parcialmente nublado",
                     "precipitation_description": "",
-                    "sky_condition": "nublado",
-                    "temperature": 30.0,
-                    "weather_icon_code": "rain_storm",
-                    "wind_direction": "oeste",
-                    "wind_intensity": "leves"
+                    "probability_of_precipitation": "10 a 30 %",
+                    "wind_direction": "este",
+                    "wind_intensity": "moderado",
+                    "wind_gusts": 45,
+                    "weather_icon_code": "sun_clouds"
                 },
                 {
                     "period": "noche",
-                    "precipitation_description": "",
+                    "temperature": 22.0,
                     "sky_condition": "nublado",
-                    "temperature": 25.0,
-                    "weather_icon_code": "rain_storm_night",
+                    "precipitation_description": "",
+                    "probability_of_precipitation": "20 a 50 %",
                     "wind_direction": "sur",
-                    "wind_intensity": "leves"
+                    "wind_intensity": "leves",
+                    "wind_gusts": 35,
+                    "weather_icon_code": "rain_storm"
+                },
+                {
+                    "period": "madrugada",
+                    "temperature": 19.0,
+                    "sky_condition": "despejado",
+                    "precipitation_description": "",
+                    "probability_of_precipitation": "0 a 20 %",
+                    "wind_direction": "norte",
+                    "wind_intensity": "leves",
+                    "wind_gusts": 20,
+                    "weather_icon_code": "moon_clear"
                 }
-            ],
-            "temp_max": 29.0,
-            "temp_min": 23.0
+            ]
         },
         {
             "date": "2026-02-06",
             "day_name": "viernes",
+            "temp_min": 20.0,
+            "temp_max": 28.0,
+            "temp_min_apparent": 22.0,
+            "temp_max_apparent": 29.0,
             "period_forecasts": [
                 {
                     "period": "mañana",
-                    "precipitation_description": "",
-                    "sky_condition": "parcialmente nublado",
                     "temperature": 22.0,
-                    "weather_icon_code": "sun_clouds",
-                    "wind_direction": "norte",
-                    "wind_intensity": "moderado"
-                },
-                {
-                    "period": "mañana",
-                    "precipitation_description": "",
                     "sky_condition": "parcialmente nublado",
-                    "temperature": 22.0,
-                    "weather_icon_code": "sun_clouds",
+                    "precipitation_description": "",
+                    "probability_of_precipitation": "10 a 40 %",
                     "wind_direction": "norte",
-                    "wind_intensity": "moderado"
+                    "wind_intensity": "moderado",
+                    "wind_gusts": 30,
+                    "weather_icon_code": "sun_clouds"
                 },
                 {
                     "period": "noche",
-                    "precipitation_description": "",
-                    "sky_condition": "despejado",
                     "temperature": 21.0,
-                    "weather_icon_code": "moon_clear",
+                    "sky_condition": "despejado",
+                    "precipitation_description": "",
+                    "probability_of_precipitation": "0 a 20 %",
                     "wind_direction": "noroeste",
-                    "wind_intensity": "leves"
+                    "wind_intensity": "leves",
+                    "wind_gusts": 25,
+                    "weather_icon_code": "moon_clear"
                 }
-            ],
-            "temp_max": 28.0,
-            "temp_min": 20.0
+            ]
         },
         {
             "date": "2026-02-07",
             "day_name": "sábado",
+            "temp_min": 18.0,
+            "temp_max": 26.0,
+            "temp_min_apparent": 19.0,
+            "temp_max_apparent": 27.0,
             "period_forecasts": [
                 {
                     "period": "mañana",
-                    "precipitation_description": "",
-                    "sky_condition": "despejado",
                     "temperature": 20.0,
-                    "weather_icon_code": "sun",
+                    "sky_condition": "despejado",
+                    "precipitation_description": "",
+                    "probability_of_precipitation": "0 a 20 %",
                     "wind_direction": "noreste",
-                    "wind_intensity": "leves"
+                    "wind_intensity": "leves",
+                    "wind_gusts": 20,
+                    "weather_icon_code": "sun"
                 },
                 {
                     "period": "noche",
-                    "precipitation_description": "",
-                    "sky_condition": "parcialmente nublado",
                     "temperature": 19.0,
-                    "weather_icon_code": "moon_clouds",
+                    "sky_condition": "parcialmente nublado",
+                    "precipitation_description": "",
+                    "probability_of_precipitation": "0 a 20 %",
                     "wind_direction": "este",
-                    "wind_intensity": "leves"
+                    "wind_intensity": "leves",
+                    "wind_gusts": 20,
+                    "weather_icon_code": "moon_clouds"
                 }
-            ],
-            "temp_max": 26.0,
-            "temp_min": 18.0
+            ]
         }
     ]
 }

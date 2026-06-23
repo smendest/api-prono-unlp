@@ -80,5 +80,5 @@ fetch('/api/v1/forecasts', {
 Este comando te traerá la lista completa de todos los registros que existan en la base de datos (mapeados de forma plana).
 
 ```sh
-curl GET <http://localhost:5000/api/v1/forecasts>
+curl GET http://localhost:5000/api/v1/forecasts
 ```
