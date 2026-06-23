@@ -77,6 +77,8 @@ def seed_sample_forecast():
                 date=date(2026, 2, 4),
                 temp_min=19.0,
                 temp_max=30.0,
+                temp_min_apparent=20.0,
+                temp_max_apparent=31.0,
             )
             db.session.add(wednesday)
             db.session.flush()
@@ -92,6 +94,8 @@ def seed_sample_forecast():
                     wind_direction=WindDirection.SOUTHEAST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="moon_stars",
+                    probability_of_precipitation="20 a 60 %",
+                    wind_gusts=45,
                 ),
                 PeriodForecast(
                     daily_forecast_id=wednesday.id,
@@ -102,6 +106,8 @@ def seed_sample_forecast():
                     wind_direction=WindDirection.SOUTHEAST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="sun_clouds",
+                    probability_of_precipitation="20 a 60 %",
+                    wind_gusts=45,
                 ),
                 PeriodForecast(
                     daily_forecast_id=wednesday.id,
@@ -112,6 +118,8 @@ def seed_sample_forecast():
                     wind_direction=WindDirection.SOUTHEAST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="storm",
+                    probability_of_precipitation="20 a 60 %",
+                    wind_gusts=45,
                 ),
                 PeriodForecast(
                     daily_forecast_id=wednesday.id,
@@ -122,6 +130,8 @@ def seed_sample_forecast():
                     wind_direction=WindDirection.WEST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="moon_clouds",
+                    probability_of_precipitation="20 a 60 %",
+                    wind_gusts=45,
                 ),
             ]
             db.session.add_all(wed_periods)
@@ -141,6 +151,8 @@ def seed_sample_forecast():
                 date=date(2026, 2, 5),
                 temp_min=23.0,
                 temp_max=29.0,
+                temp_min_apparent=24.0,
+                temp_max_apparent=30.0,
             )
             db.session.add(thursday)
             db.session.flush()
@@ -156,6 +168,8 @@ def seed_sample_forecast():
                     wind_direction=WindDirection.EAST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="moon_stars",
+                    probability_of_precipitation="30 a 70 %",
+                    wind_gusts=45,
                 ),
                 PeriodForecast(
                     daily_forecast_id=thursday.id,
@@ -166,6 +180,8 @@ def seed_sample_forecast():
                     wind_direction=WindDirection.EAST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="rain_storm",
+                    probability_of_precipitation="30 a 70 %",
+                    wind_gusts=45,
                 ),
                 PeriodForecast(
                     daily_forecast_id=thursday.id,
@@ -176,6 +192,8 @@ def seed_sample_forecast():
                     wind_direction=WindDirection.WEST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="rain_storm",
+                    probability_of_precipitation="30 a 70 %",
+                    wind_gusts=45,
                 ),
                 PeriodForecast(
                     daily_forecast_id=thursday.id,
@@ -186,6 +204,8 @@ def seed_sample_forecast():
                     wind_direction=WindDirection.SOUTH,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="rain_storm_night",
+                    probability_of_precipitation="30 a 70 %",
+                    wind_gusts=45,
                 ),
             ]
             db.session.add_all(thu_periods)
@@ -204,6 +224,8 @@ def seed_sample_forecast():
                 date=date(2026, 2, 6),
                 temp_min=20.0,
                 temp_max=28.0,
+                temp_min_apparent=22.0,
+                temp_max_apparent=29.0,
             )
             db.session.add(friday)
             db.session.flush()
@@ -219,6 +241,8 @@ def seed_sample_forecast():
                     wind_direction=WindDirection.NORTH,
                     wind_intensity=WindIntensity.MODERATE,
                     weather_icon_code="sun_clouds",
+                    probability_of_precipitation="10 a 40 %",
+                    wind_gusts=30,
                 ),
                 PeriodForecast(
                     daily_forecast_id=friday.id,
@@ -229,6 +253,8 @@ def seed_sample_forecast():
                     wind_direction=WindDirection.NORTHWEST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="moon_clear",
+                    probability_of_precipitation="10 a 40 %",
+                    wind_gusts=30,
                 ),
             ]
             db.session.add_all(fri_periods)
@@ -247,6 +273,8 @@ def seed_sample_forecast():
                 date=date(2026, 2, 7),
                 temp_min=18.0,
                 temp_max=26.0,
+                temp_min_apparent=20.0,
+                temp_max_apparent=27.0,
             )
             db.session.add(saturday)
             db.session.flush()
@@ -262,6 +290,8 @@ def seed_sample_forecast():
                     wind_direction=WindDirection.NORTHEAST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="sun",
+                    probability_of_precipitation="0 a 20 %",
+                    wind_gusts=20,
                 ),
                 PeriodForecast(
                     daily_forecast_id=saturday.id,
@@ -272,6 +302,8 @@ def seed_sample_forecast():
                     wind_direction=WindDirection.EAST,
                     wind_intensity=WindIntensity.LIGHT,
                     weather_icon_code="moon_clouds",
+                    probability_of_precipitation="0 a 20 %",
+                    wind_gusts=20,
                 ),
             ]
             db.session.add_all(sat_periods)
@@ -321,6 +353,8 @@ def seed_mar_del_plata_forecasts():
             date=date(2026, 4, 13),
             temp_min=16.0,
             temp_max=22.0,
+            temp_min_apparent=18.0,
+            temp_max_apparent=23.0,
         )
         db.session.add(sunday)
         db.session.flush()
@@ -336,6 +370,8 @@ def seed_mar_del_plata_forecasts():
                 wind_direction=WindDirection.SOUTHWEST,
                 wind_intensity=WindIntensity.LIGHT,
                 weather_icon_code="moon_clear",
+                probability_of_precipitation="10 a 30 %",
+                wind_gusts=35,
             ),
             PeriodForecast(
                 daily_forecast_id=sunday.id,
@@ -346,6 +382,8 @@ def seed_mar_del_plata_forecasts():
                 wind_direction=WindDirection.SOUTHWEST,
                 wind_intensity=WindIntensity.MODERATE,
                 weather_icon_code="sun",
+                probability_of_precipitation="10 a 30 %",
+                wind_gusts=35,
             ),
             PeriodForecast(
                 daily_forecast_id=sunday.id,
@@ -356,6 +394,8 @@ def seed_mar_del_plata_forecasts():
                 wind_direction=WindDirection.SOUTHWEST,
                 wind_intensity=WindIntensity.MODERATE,
                 weather_icon_code="sun_clouds",
+                probability_of_precipitation="10 a 30 %",
+                wind_gusts=35,
             ),
             PeriodForecast(
                 daily_forecast_id=sunday.id,
@@ -366,6 +406,8 @@ def seed_mar_del_plata_forecasts():
                 wind_direction=WindDirection.SOUTH,
                 wind_intensity=WindIntensity.LIGHT,
                 weather_icon_code="moon_clouds",
+                probability_of_precipitation="10 a 30 %",
+                wind_gusts=35,
             ),
         ]
         db.session.add_all(sun_periods)
@@ -377,6 +419,8 @@ def seed_mar_del_plata_forecasts():
             date=date(2026, 4, 14),
             temp_min=14.0,
             temp_max=20.0,
+            temp_min_apparent=16.0,
+            temp_max_apparent=21.0,
         )
         db.session.add(monday)
         db.session.flush()
@@ -392,6 +436,8 @@ def seed_mar_del_plata_forecasts():
                 wind_direction=WindDirection.SOUTHEAST,
                 wind_intensity=WindIntensity.MODERATE,
                 weather_icon_code="moon_clouds",
+                probability_of_precipitation="40 a 80 %",
+                wind_gusts=50,
             ),
             PeriodForecast(
                 daily_forecast_id=monday.id,
@@ -402,6 +448,8 @@ def seed_mar_del_plata_forecasts():
                 wind_direction=WindDirection.SOUTHEAST,
                 wind_intensity=WindIntensity.MODERATE,
                 weather_icon_code="clouds",
+                probability_of_precipitation="40 a 80 %",
+                wind_gusts=50,
             ),
             PeriodForecast(
                 daily_forecast_id=monday.id,
@@ -412,6 +460,8 @@ def seed_mar_del_plata_forecasts():
                 wind_direction=WindDirection.EAST,
                 wind_intensity=WindIntensity.MODERATE,
                 weather_icon_code="rain",
+                probability_of_precipitation="40 a 80 %",
+                wind_gusts=50,
             ),
             PeriodForecast(
                 daily_forecast_id=monday.id,
@@ -422,6 +472,8 @@ def seed_mar_del_plata_forecasts():
                 wind_direction=WindDirection.NORTHEAST,
                 wind_intensity=WindIntensity.LIGHT,
                 weather_icon_code="moon_clouds",
+                probability_of_precipitation="40 a 80 %",
+                wind_gusts=50,
             ),
         ]
         db.session.add_all(mon_periods)
@@ -433,6 +485,8 @@ def seed_mar_del_plata_forecasts():
             date=date(2026, 4, 15),
             temp_min=13.0,
             temp_max=19.0,
+            temp_min_apparent=15.0,
+            temp_max_apparent=20.0,
         )
         db.session.add(tuesday)
         db.session.flush()
@@ -448,6 +502,8 @@ def seed_mar_del_plata_forecasts():
                 wind_direction=WindDirection.NORTH,
                 wind_intensity=WindIntensity.MODERATE,
                 weather_icon_code="sun_clouds",
+                probability_of_precipitation="20 a 50 %",
+                wind_gusts=30,
             ),
             PeriodForecast(
                 daily_forecast_id=tuesday.id,
@@ -458,6 +514,8 @@ def seed_mar_del_plata_forecasts():
                 wind_direction=WindDirection.NORTHWEST,
                 wind_intensity=WindIntensity.LIGHT,
                 weather_icon_code="moon_clear",
+                probability_of_precipitation="20 a 50 %",
+                wind_gusts=30,
             ),
         ]
         db.session.add_all(tue_periods)
@@ -469,6 +527,8 @@ def seed_mar_del_plata_forecasts():
             date=date(2026, 4, 16),
             temp_min=12.0,
             temp_max=18.0,
+            temp_min_apparent=14.0,
+            temp_max_apparent=19.0,
         )
         db.session.add(wednesday)
         db.session.flush()

@@ -21,6 +21,11 @@ from models import (
     Precipitation,
 )
 from datetime import datetime
+import logging
+
+# Configurar logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 def register_routes(app):
@@ -73,11 +78,14 @@ def register_routes(app):
 
     @app.route("/api/v1/forecasts", methods=["POST"])
     def create_forecast():
+        logger.info("=== Creating new forecast ===")
         # POST - Handle both form data and JSON
         if request.is_json:
             data = request.get_json()
+            logger.debug(f"Received JSON data: {data}")
         else:
             data = request.form
+            logger.debug(f"Received form data: {data}")
 
         # Forecast data
         city_str = data.get("city")
@@ -85,8 +93,11 @@ def register_routes(app):
         emission_time_str = data.get("emission_time")
         daily_forecasts_data = data.get("daily_forecasts")
 
+        logger.debug(f"City: {city_str}, Date: {forecast_date_str}, Time: {emission_time_str}")
+
         # Validate required fields
         if not city_str or not forecast_date_str or not emission_time_str or not daily_forecasts_data:
+            logger.error("Missing required fields")
             return jsonify(
                 {
                     "error": "city, forecast_date, emission_time, and daily_forecasts are required",
@@ -98,26 +109,41 @@ def register_routes(app):
             # Convert strings to appropriate types
             city_enum = City(city_str)
             forecast_date = datetime.strptime(forecast_date_str, "%Y-%m-%d").date()
-            
+
             # Handle both HH:MM and HH:MM:SS time formats
             try:
                 emission_time = datetime.strptime(emission_time_str, "%H:%M:%S").time()
-            except ValueError:
-                emission_time = datetime.strptime(emission_time_str, "%H:%M").time()
+                logger.debug(f"Parsed time as HH:MM:SS: {emission_time}")
+            except ValueError as e:
+                logger.debug(f"Failed to parse as HH:MM:SS, trying HH:MM: {e}")
+                try:
+                    emission_time = datetime.strptime(emission_time_str, "%H:%M").time()
+                    logger.debug(f"Parsed time as HH:MM: {emission_time}")
+                except ValueError as e2:
+                    logger.error(f"Invalid time format: {emission_time_str}. Error: {e2}")
+                    return jsonify(
+                        {
+                            "error": f"Invalid time format: {emission_time_str}. Use HH:MM or HH:MM:SS",
+                            "status": "error",
+                        }
+                    ), 400
 
             # Create Forecast
             new_forecast = Forecast(forecast_date, emission_time, city_enum)
             insert_record(new_forecast)
+            logger.info(f"Created forecast with ID: {new_forecast.id}")
 
             # Create DailyForecasts and PeriodForecasts
             created_daily_forecasts = []
-            for daily_data in daily_forecasts_data:
+            for idx, daily_data in enumerate(daily_forecasts_data):
+                logger.debug(f"Processing daily forecast {idx + 1}/{len(daily_forecasts_data)}")
                 # Validate daily forecast data
                 day_name_str = daily_data.get("day_name")
                 daily_date_str = daily_data.get("date")
                 period_forecasts_data = daily_data.get("period_forecasts", [])
 
                 if not day_name_str or not daily_date_str:
+                    logger.error(f"Missing day_name or date in daily forecast {idx}")
                     return jsonify(
                         {
                             "error": "day_name and date are required for each daily forecast",
@@ -135,23 +161,41 @@ def register_routes(app):
                     date=daily_date,
                     temp_min=float(daily_data.get("temp_min")) if daily_data.get("temp_min") else None,
                     temp_max=float(daily_data.get("temp_max")) if daily_data.get("temp_max") else None,
+                    temp_min_apparent=float(daily_data.get("temp_min_apparent")) if daily_data.get("temp_min_apparent") else None,
+                    temp_max_apparent=float(daily_data.get("temp_max_apparent")) if daily_data.get("temp_max_apparent") else None,
                 )
                 insert_record(daily_forecast)
+                logger.debug(f"Created daily forecast with ID: {daily_forecast.id}")
 
                 # Create PeriodForecasts for this daily forecast
                 created_period_forecasts = []
-                for period_data in period_forecasts_data:
+                for period_idx, period_data in enumerate(period_forecasts_data):
+                    logger.debug(f"Processing period forecast {period_idx + 1}/{len(period_forecasts_data)}")
                     period_str = period_data.get("period")
                     if not period_str:
+                        logger.warning(f"Skipping period forecast with no period name")
                         continue
 
-                    period = TimePeriod(period_str)
+                    try:
+                        period = TimePeriod(period_str)
+                    except ValueError as e:
+                        logger.error(f"Invalid period value: {period_str}. Error: {e}")
+                        return jsonify(
+                            {
+                                "error": f"Invalid period value: {period_str}",
+                                "status": "error",
+                            }
+                        ), 400
+
                     sky_condition_str = period_data.get("sky_condition")
                     sky_condition = SkyCondition(sky_condition_str) if sky_condition_str else None
+
                     wind_direction_str = period_data.get("wind_direction")
                     wind_direction = WindDirection(wind_direction_str) if wind_direction_str else None
+
                     wind_intensity_str = period_data.get("wind_intensity")
                     wind_intensity = WindIntensity(wind_intensity_str) if wind_intensity_str else None
+
                     precipitation_str = period_data.get("precipitation_description")
                     precipitation = Precipitation(precipitation_str) if precipitation_str and precipitation_str.strip() else None
 
@@ -164,15 +208,19 @@ def register_routes(app):
                         wind_direction=wind_direction,
                         wind_intensity=wind_intensity,
                         weather_icon_code=period_data.get("weather_icon_code") if period_data.get("weather_icon_code") else None,
+                        probability_of_precipitation=period_data.get("probability_of_precipitation") if period_data.get("probability_of_precipitation") else None,
+                        wind_gusts=int(period_data.get("wind_gusts")) if period_data.get("wind_gusts") is not None and str(period_data.get("wind_gusts")).strip() != "" else None,
                     )
                     insert_record(period_forecast)
                     created_period_forecasts.append(period_forecast.to_dict())
+                    logger.debug(f"Created period forecast with ID: {period_forecast.id}")
 
                 created_daily_forecasts.append({
                     **daily_forecast.to_dict(),
                     "period_forecasts": created_period_forecasts
                 })
 
+            logger.info("=== Forecast created successfully ===")
             return jsonify(
                 {
                     "message": "Forecast created successfully",
@@ -181,7 +229,13 @@ def register_routes(app):
                 }
             ), 201
 
+        except ValueError as e:
+            logger.error(f"ValueError: {str(e)}")
+            return jsonify(
+                {"error": f"Validation error: {str(e)}", "status": "error"}
+            ), 400
         except Exception as e:
+            logger.error(f"Unexpected error: {str(e)}", exc_info=True)
             return jsonify(
                 {"error": f"Error creating forecast: {str(e)}", "status": "error"}
             ), 500

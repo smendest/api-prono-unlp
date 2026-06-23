@@ -66,6 +66,7 @@ class SkyCondition(enum.Enum):
     SOMEWHAT_CLOUDY = "algo nublado"
     CLOUDY = "nublado"
     OVERCAST = "muy nublado"
+    FOG = "neblinas"
 
 
 class Precipitation(enum.Enum):
@@ -146,6 +147,8 @@ class DailyForecast(db.Model):
     # Overall daily temperature range
     temp_min: Mapped[float] = mapped_column(Float, nullable=True)  # Actual minimum
     temp_max: Mapped[float] = mapped_column(Float, nullable=True)  # Actual maximum
+    temp_min_apparent: Mapped[float] = mapped_column(Float, nullable=True)  # Feels-like minimum
+    temp_max_apparent: Mapped[float] = mapped_column(Float, nullable=True)  # Feels-like maximum
 
     # Relationships
     forecast: Mapped["Forecast"] = relationship(
@@ -162,12 +165,16 @@ class DailyForecast(db.Model):
         date,
         temp_min=None,
         temp_max=None,
+        temp_min_apparent=None,
+        temp_max_apparent=None,
     ):
         self.forecast_id = forecast_id
         self.day_name = day_name
         self.date = date
         self.temp_min = temp_min
         self.temp_max = temp_max
+        self.temp_min_apparent = temp_min_apparent
+        self.temp_max_apparent = temp_max_apparent
 
     def to_dict(self):
         return {
@@ -177,6 +184,8 @@ class DailyForecast(db.Model):
             "date": self.date.isoformat() if self.date else None,
             "temp_min": self.temp_min,
             "temp_max": self.temp_max,
+            "temp_min_apparent": self.temp_min_apparent,
+            "temp_max_apparent": self.temp_max_apparent,
             "period_forecasts": [pf.to_dict() for pf in self.period_forecasts]
             if self.period_forecasts
             else [],
@@ -224,6 +233,14 @@ class PeriodForecast(db.Model):
         String(50), nullable=True
     )  # e.g., "sun_clouds", "storm", "moon_clear"
 
+    # New fields
+    probability_of_precipitation: Mapped[str] = mapped_column(
+        String(20), nullable=True
+    )  # e.g. "0 %", "10 a 40 %"
+    wind_gusts: Mapped[int] = mapped_column(
+        Integer, nullable=True
+    )  # Wind gusts in km/h
+
     # Relationships
     daily_forecast: Mapped["DailyForecast"] = relationship(
         "DailyForecast", back_populates="period_forecasts"
@@ -239,6 +256,8 @@ class PeriodForecast(db.Model):
         wind_direction=None,
         wind_intensity=None,
         weather_icon_code=None,
+        probability_of_precipitation=None,
+        wind_gusts=None,
     ):
         self.daily_forecast_id = daily_forecast_id
         self.period = period
@@ -248,6 +267,8 @@ class PeriodForecast(db.Model):
         self.wind_direction = wind_direction
         self.wind_intensity = wind_intensity
         self.weather_icon_code = weather_icon_code
+        self.probability_of_precipitation = probability_of_precipitation
+        self.wind_gusts = wind_gusts
 
     def to_dict(self):
         return {
@@ -266,6 +287,8 @@ class PeriodForecast(db.Model):
             if self.wind_intensity
             else None,
             "weather_icon_code": self.weather_icon_code,
+            "probability_of_precipitation": self.probability_of_precipitation,
+            "wind_gusts": self.wind_gusts,
         }
 
     def __repr__(self) -> str:

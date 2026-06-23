@@ -69,8 +69,10 @@ Represents a specific time period within a day (morning, afternoon, night, etc.)
 - `temperature` - Temperature for this period
 - `sky_condition` - Cloud coverage enum
 - `precipitation_description` - Text description of precipitation
+- `probability_of_precipitation` - Rain probability range (e.g., "10 a 40 %")
 - `wind_direction` - Cardinal direction enum
 - `wind_intensity` - Wind strength enum
+- `wind_gusts` - Wind gusts speed (km/h)
 - `weather_icon_code` - Icon identifier
 
 **Relationships:**
@@ -256,8 +258,10 @@ When you call `forecast.to_dict()`, you get:
           "temperature": 20.0,
           "sky_condition": "algo nublado",
           "precipitation_description": "Algo nublado",
+          "probability_of_precipitation": "10 a 40 %",
           "wind_direction": "sudeste",
           "wind_intensity": "leves",
+          "wind_gusts": 35,
           "weather_icon_code": "sun_clouds"
         }
       ]
@@ -280,6 +284,8 @@ When you call `forecast.to_dict()`, you get:
 | Algo nublado | `sky_condition` | SkyCondition.SOMEWHAT_CLOUDY |
 | Leves del sudeste | `wind_direction` + `wind_intensity` | WindDirection.SOUTHEAST + WindIntensity.LIGHT |
 | Baja prob. de tormentas | `precipitation_description` | "Baja prob. de tormentas aisladas" |
+| 10 a 40 % (Prob. Precip.) | `probability_of_precipitation` | "10 a 40 %" |
+| Ráfagas | `wind_gusts` | 35 |
 
 ## Notes
 
